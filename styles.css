@@ -1,0 +1,43 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.Tablero {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.Celda {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border: 1px solid #999;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.Celda.Revelada {
+  background-color: #eee;
+  cursor: default;
+}
+
+
+.Celda.Minado {
+  background-color: #e74c3c;
+  color: white;
+}
