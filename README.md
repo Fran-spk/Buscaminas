@@ -1,0 +1,1 @@
+En el primer commit se creo el html basico con el componente tablero, algunas clases CSS y las funcionalidades basicas del juego con JS: Variables principales, crear un juego, poner bombas y revelar casillas
