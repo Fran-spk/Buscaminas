@@ -13,23 +13,29 @@ function IniciarJuego() {
   Tablero = [];
   MinasRestantes = MinasTotales;
   TableroDOM.style.gridTemplateColumns = `repeat(${Columnas}, 40px)`;
+  //inicializo el tablero logico
    for (let i = 0; i < Filas * Columnas; i++) {
     Tablero.push({
       Minado: false,
       Revelado: false,
       Bandera: false,
+      MinasCerca: 0,
     });
   }
-
+  //crear las celdas y sus eventos
   for (let i = 0; i < Filas * Columnas; i++) {
     const Celda = document.createElement("div");
     Celda.classList.add("Celda");
     Celda.dataset.index = i; 
     Celda.addEventListener("click", () => Revelar(i));
+     Celda.addEventListener("contextmenu", (e) => {
+      e.preventDefault(); 
+      PonerBandera(i);
+    });
     TableroDOM.appendChild(Celda);
   }
-
   GenerarMinas()
+  ObtenerMinasCerca()
 }
 
 function GenerarMinas() {
@@ -41,6 +47,33 @@ function GenerarMinas() {
       Colocadas++;
     }
   }
+}
+
+
+function ObtenerMinasCerca(){
+   for (let i = 0; i < Tablero.length; i++) {
+    if (Tablero[i].Minado) continue;
+    let Vecinos = ObtenerVecinos(i);
+    Tablero[i].MinasCerca = Vecinos.filter((v) => Tablero[v].Minado).length;
+  }
+}
+
+function ObtenerVecinos(celda) {
+  const fila = Math.floor(celda / Columnas);
+  const col = celda % Columnas;
+  const vecinos = [];
+
+  for (let i = -1; i <= 1; i++) {
+    for (let j = -1; j <= 1; j++) {
+      if (i === 0 && j === 0) continue;
+      const F = fila + i;
+      const C = col + j;
+      if (F >= 0 && F < Filas && C >= 0 && C < Columnas) {
+        vecinos.push(F * Columnas + C);
+      }
+    }
+  }
+  return vecinos;
 }
 
 function Revelar(i) {
@@ -58,6 +91,31 @@ function Revelar(i) {
     alert("💥 ¡Perdiste! 💥");
     return;
   }
+
+  if (Celda.MinasCerca > 0) {
+    CeldaDom.textContent = Celda.MinasCerca;
+  } else {
+    ObtenerVecinos(i).forEach((v) => Revelar(v));
+  }
+}
+
+function PonerBandera(i) {
+  const Celda = Tablero[i];
+  const CeldaDom = TableroDOM.children[i];
+
+  if (Celda.Revelado) return; 
+
+  Celda.Bandera = !Celda.Bandera;
+  if (Celda.Bandera) {
+    CeldaDom.textContent = "🚩";
+    CeldaDom.classList.add("Bandera");
+  } else {
+    CeldaDom.textContent = "";
+    CeldaDom.classList.remove("Bandera");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", IniciarJuego);
+
+//funcionalidad de banderas
+//obtener minas cercas

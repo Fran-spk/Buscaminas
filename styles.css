@@ -28,7 +28,6 @@ body {
   cursor: pointer;
   font-size: 18px;
   text-align: center;
-  line-height: 40px;
 }
 
 .Celda.Revelada {
@@ -40,4 +39,8 @@ body {
 .Celda.Minado {
   background-color: #e74c3c;
   color: white;
+}
+
+.Celda.Bandera{
+  background-color: #417f30;
 }
