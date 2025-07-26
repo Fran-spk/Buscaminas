@@ -26,13 +26,17 @@ body {
   background-color: #ccc;
   border: 1px solid #999;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
+  display: flex;              
+  justify-content: center;    
+  align-items: center;  
 }
 
 .Celda.Revelada {
   background-color: #eee;
   cursor: default;
+  text-align: center;
 }
 
 
@@ -43,4 +47,19 @@ body {
 
 .Celda.Bandera{
   background-color: #417f30;
+}
+
+.Resultado {
+  margin-top: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #222;
+  padding: 10px;
+}
+.Resultado.ganar {
+  color: green;
+}
+.Resultado.perder {
+  color: red;
 }

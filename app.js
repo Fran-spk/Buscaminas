@@ -5,10 +5,11 @@ let Tablero = [];
 
 
 const TableroDOM = document.getElementById("Tablero");
-
+const ResultadoDOM = document.querySelector(".Resultado");
 
 
 function IniciarJuego() {
+ 
   TableroDOM.innerHTML = "";
   Tablero = [];
   MinasRestantes = MinasTotales;
@@ -85,13 +86,16 @@ function Revelar(i) {
   Celda.Revelado = true;
   CeldaDom.classList.add("Revelada");
 
-  if (Celda.Minado) {
-    CeldaDom.classList.add("Minado");
-    CeldaDom.textContent = "💣";
-    alert("💥 ¡Perdiste! 💥");
-    return;
-  }
+ if (Celda.Minado) {
+  CeldaDom.classList.add("Minado");
+  CeldaDom.textContent = "💣";
+  RevelarCeldas();
+  ResultadoDOM.textContent = 'PERDISTE';
+  ResultadoDOM.classList.add("perder");
+  return;
+}
 
+ // si no hay minas cercas llamar la funcion revelar de cada casilla libre vecina para verificar nuevamente minas cercanas, asi recursivamente hasta q halla
   if (Celda.MinasCerca > 0) {
     CeldaDom.textContent = Celda.MinasCerca;
   } else {
@@ -117,5 +121,21 @@ function PonerBandera(i) {
 
 document.addEventListener("DOMContentLoaded", IniciarJuego);
 
-//funcionalidad de banderas
-//obtener minas cercas
+function RevelarCeldas() {
+ for (let i = 0; i < Tablero.length; i++) {
+   const celda = Tablero[i];
+   const celdaDOM = TableroDOM.children[i];
+
+   celdaDOM.classList.add("Revelada");
+
+   if (celda.Minado) {
+    celdaDOM.textContent = "💣";
+    celdaDOM.classList.add("Minado");
+    continue;
+    }
+
+    if (celda.MinasCerca > 0) {
+    celdaDOM.textContent = celda.MinasCerca;
+    } 
+  }
+}
