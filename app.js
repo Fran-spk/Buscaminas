@@ -101,6 +101,7 @@ function Revelar(i) {
   } else {
     ObtenerVecinos(i).forEach((v) => Revelar(v));
   }
+   VerificarVictoria()
 }
 
 function PonerBandera(i) {
@@ -117,6 +118,7 @@ function PonerBandera(i) {
     CeldaDom.textContent = "";
     CeldaDom.classList.remove("Bandera");
   }
+   VerificarVictoria()
 }
 
 document.addEventListener("DOMContentLoaded", IniciarJuego);
@@ -138,4 +140,18 @@ function RevelarCeldas() {
     celdaDOM.textContent = celda.MinasCerca;
     } 
   }
+}
+
+function VerificarVictoria() {
+
+  const reveladas = Tablero.filter((c) => c.Revelado ).length;
+  const noMinas = Tablero.filter((c) => !c.Minado ).length;
+  //si lo unico no revelado son las minas 
+  if (reveladas=== noMinas) {
+     ResultadoDOM.textContent = 'GANASTE';
+     ResultadoDOM.classList.add("ganar");
+     RevelarCeldas();
+  }
+
+  
 }
