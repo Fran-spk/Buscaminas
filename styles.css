@@ -1,16 +1,22 @@
 body {
   font-family: sans-serif;
   text-align: center;
-  background-color: #f2f2f2;
+  background-color: #298b39;
+  font-family: 'Minecraft', sans-serif;
 }
 
+
+
 .Header {
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #213d2693;
 }
 
 .Tablero {
@@ -21,32 +27,44 @@ body {
 }
 
 .Celda {
-  width: 40px;
-  height: 40px;
-  background-color: #ccc;
-  border: 1px solid #999;
-  cursor: pointer;
-  font-size: 20px;
-  text-align: center;
-  display: flex;              
-  justify-content: center;    
-  align-items: center;  
+  width: 48px;
+  height: 48px;
+  background-size: cover;
+  background-position: center;
+  border: 0px solid #999;
+  display: inline-block;
+  box-sizing: border-box;
+  background-image: url("Celda.png");
+  margin: 0;
+  padding: 0;
+  border: #624b4b solid;
+  display: flex;               
+  align-items: center;        
+  justify-content: center;     
+  font-weight: bold;         
+  font-size: 25px;     
+  color: #110a7e      
 }
 
+
 .Celda.Revelada {
-  background-color: #eee;
-  cursor: default;
-  text-align: center;
+  background-image: url("Revelada.png");
+  background-size: cover;
+  background-position: center;
 }
 
 
 .Celda.Minado {
-  background-color: #e74c3c;
-  color: white;
+  background-image: url("Mina.png");
+  background-size: cover;
+  background-position: center;
 }
 
+
 .Celda.Bandera{
-  background-color: #417f30;
+  background-image: url("Bandera.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .Resultado {
@@ -58,7 +76,7 @@ body {
   padding: 10px;
 }
 .Resultado.ganar {
-  color: green;
+  color: rgb(61, 72, 61);
 }
 .Resultado.perder {
   color: red;

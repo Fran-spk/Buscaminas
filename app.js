@@ -1,7 +1,9 @@
+
 const Filas = 10;
 const Columnas = 10;
 const MinasTotales = 10;
 let Tablero = [];
+let segundos = 0;
 
 
 const TableroDOM = document.getElementById("Tablero");
@@ -9,11 +11,11 @@ const ResultadoDOM = document.querySelector(".Resultado");
 
 
 function IniciarJuego() {
- 
+  iniciarTimer();
   TableroDOM.innerHTML = "";
   Tablero = [];
   MinasRestantes = MinasTotales;
-  TableroDOM.style.gridTemplateColumns = `repeat(${Columnas}, 40px)`;
+  TableroDOM.style.gridTemplateColumns = `repeat(${Columnas}, 48px)`;
   //inicializo el tablero logico
    for (let i = 0; i < Filas * Columnas; i++) {
     Tablero.push({
@@ -87,14 +89,9 @@ function Revelar(i) {
   CeldaDom.classList.add("Revelada");
 
  if (Celda.Minado) {
-  CeldaDom.classList.add("Minado");
-  CeldaDom.textContent = "💣";
-  RevelarCeldas();
-  ResultadoDOM.textContent = 'PERDISTE';
-  ResultadoDOM.classList.add("perder");
+  Perder(CeldaDom)
   return;
-}
-
+  }
  // si no hay minas cercas llamar la funcion revelar de cada casilla libre vecina para verificar nuevamente minas cercanas, asi recursivamente hasta q halla
   if (Celda.MinasCerca > 0) {
     CeldaDom.textContent = Celda.MinasCerca;
@@ -112,7 +109,6 @@ function PonerBandera(i) {
 
   Celda.Bandera = !Celda.Bandera;
   if (Celda.Bandera) {
-    CeldaDom.textContent = "🚩";
     CeldaDom.classList.add("Bandera");
   } else {
     CeldaDom.textContent = "";
@@ -131,7 +127,6 @@ function RevelarCeldas() {
    celdaDOM.classList.add("Revelada");
 
    if (celda.Minado) {
-    celdaDOM.textContent = "💣";
     celdaDOM.classList.add("Minado");
     continue;
     }
@@ -143,7 +138,6 @@ function RevelarCeldas() {
 }
 
 function VerificarVictoria() {
-
   const reveladas = Tablero.filter((c) => c.Revelado ).length;
   const noMinas = Tablero.filter((c) => !c.Minado ).length;
   //si lo unico no revelado son las minas 
@@ -152,6 +146,29 @@ function VerificarVictoria() {
      ResultadoDOM.classList.add("ganar");
      RevelarCeldas();
   }
+}
 
-  
+function Perder(celda)
+{
+  celda.classList.add("Minado");
+  RevelarCeldas();
+  ResultadoDOM.textContent = 'PERDISTE';
+  ResultadoDOM.classList.add("perder");
+  reiniciarTimer();
+}
+
+
+function iniciarTimer() {
+  setInterval(() => {
+    segundos++;
+    const timerDom = document.getElementById("Timer");
+    if (timerDom) {
+      timerDom.textContent = `Tiempo: ${segundos}s`;
+    }
+  }, 1000);
+}
+
+function reiniciarTimer() {
+  segundos = 0;
+  document.getElementById("Timer").textContent = "Tiempo: 0s";
 }
