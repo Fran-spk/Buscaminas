@@ -77,23 +77,31 @@ body {
   color: red;
 }
 
-.toggle-music {
+.Titulo-Componentes {
   font-family: "Minecraft", sans-serif;
-  top: 20px;
-  right: 30px;
   background: #214121;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 8px 16px;
   font-size: 1.1em;
+  min-width: 90px;
+  height: 40px;
   cursor: pointer;
-  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
   transition: background 0.2s;
 }
-.toggle-music:hover {
+
+.Titulo-Componentes:hover {
   background: #444;
 }
+
+
 
 #NuevaPartida {
   background: transparent;

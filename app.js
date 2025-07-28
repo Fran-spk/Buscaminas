@@ -1,20 +1,29 @@
 const Filas = 10;
 const Columnas = 10;
 const MinasTotales = 10;
+let MinasRestantes = MinasTotales;
 let Tablero = [];
 let juegoIniciado = false;
 
 const TableroDOM = document.getElementById("Tablero");
 const ResultadoDOM = document.querySelector(".Resultado");
+const btnNuevaPartida = document.getElementById("NuevaPartida")
+const CaraDOM = document.getElementById("Cara");
+const BanderasDOM = document.getElementById("Banderas");
+
 
 function IniciarJuego() {
   // Limpio el DOM y el array Tablero correctamente
   TableroDOM.innerHTML = "";
   Tablero = [];
-  MinasRestantes = MinasTotales;
   TableroDOM.style.gridTemplateColumns = `repeat(${Columnas}, 48px)`;
   juegoIniciado = false; // Reinicio el estado del juego
   reiniciarTimer(); // Aseguro que el timer muestre 0 al iniciar
+  MinasRestantes = MinasTotales;
+if (BanderasDOM) {
+  BanderasDOM.textContent = `🚩: ${MinasRestantes}`;
+}
+
   //inicializo el tablero logico y creo las celdas y sus eventos
   for (let i = 0; i < Filas * Columnas; i++) {
     Tablero.push({
@@ -36,6 +45,19 @@ function IniciarJuego() {
   GenerarMinas();
   ObtenerMinasCerca();
 }
+
+function NuevaPartida() {
+  ResultadoDOM.textContent = "";
+  ResultadoDOM.classList.remove("ganar", "perder");
+  reiniciarTimer();
+  IniciarJuego();
+  if (CaraDOM) CaraDOM.src = "assets/img/personaje.jpg";
+}
+
+if (btnNuevaPartida) {
+  btnNuevaPartida.addEventListener("click", NuevaPartida);
+}
+
 
 function GenerarMinas() {
   let Colocadas = 0;
@@ -110,10 +132,17 @@ function PonerBandera(i) {
   Celda.Bandera = !Celda.Bandera;
   if (Celda.Bandera) {
     CeldaDom.classList.add("Bandera");
+    MinasRestantes--;
   } else {
     CeldaDom.textContent = "";
     CeldaDom.classList.remove("Bandera");
+    MinasTotales++
   }
+  
+  if (BanderasDOM) {
+    BanderasDOM.textContent = `🚩: ${MinasRestantes}`;
+  }
+  
   VerificarVictoria();
 }
 
@@ -172,6 +201,7 @@ function Perder(celda) {
   celda.classList.add("Minado");
   RevelarCeldas();
   ResultadoDOM.textContent = "PERDISTE";
+  if (CaraDOM) CaraDOM.src = "assets/img/minecraft.png";
   ResultadoDOM.classList.add("perder");
   const explosionAudio = new Audio("assets/sonidos/tnt-explosion.mp3");
   explosionAudio.play();

@@ -10,11 +10,17 @@
   <body>
     <header class="Header">
       <h1 class="Titulo">Buscaminas</h1>
-      <button id="toggleMusicBtn" class="toggle-music">🔊 Musica</button>
-    </header>
+        <div class="Titulo">
+          <a href="https://github.com/Fran-spk/Buscaminas" target="_blank">
+            <button class="Titulo-Componentes">Repositorio</button>
+          </a>
+          <button id="toggleMusicBtn" class="Titulo-Componentes">🔊 Musica</button>
+        </div>
+      </header>
     <main>
-       <button id = "NuevaPartida"><img src="assets/img/minecraft.png" alt="Nueva Partida"></button>
-       <p>Nueva Partida</p>
+        <button id = "NuevaPartida">
+          <img id="Cara" src="assets/img/personaje.jpg" alt="Nueva Partida">
+        </button>
        <div id="Timer">Tiempo: 0</div>
        <div id="Banderas">🚩:</div>
       <div id="Tablero" class="Tablero"></div>
