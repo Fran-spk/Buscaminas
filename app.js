@@ -1,44 +1,40 @@
-
 const Filas = 10;
 const Columnas = 10;
 const MinasTotales = 10;
 let Tablero = [];
-let segundos = 0;
-
+let juegoIniciado = false;
 
 const TableroDOM = document.getElementById("Tablero");
 const ResultadoDOM = document.querySelector(".Resultado");
 
-
 function IniciarJuego() {
-  iniciarTimer();
+  // Limpio el DOM y el array Tablero correctamente
   TableroDOM.innerHTML = "";
   Tablero = [];
   MinasRestantes = MinasTotales;
   TableroDOM.style.gridTemplateColumns = `repeat(${Columnas}, 48px)`;
-  //inicializo el tablero logico
-   for (let i = 0; i < Filas * Columnas; i++) {
+  juegoIniciado = false; // Reinicio el estado del juego
+  reiniciarTimer(); // Aseguro que el timer muestre 0 al iniciar
+  //inicializo el tablero logico y creo las celdas y sus eventos
+  for (let i = 0; i < Filas * Columnas; i++) {
     Tablero.push({
       Minado: false,
       Revelado: false,
       Bandera: false,
       MinasCerca: 0,
     });
-  }
-  //crear las celdas y sus eventos
-  for (let i = 0; i < Filas * Columnas; i++) {
     const Celda = document.createElement("div");
     Celda.classList.add("Celda");
-    Celda.dataset.index = i; 
-    Celda.addEventListener("click", () => Revelar(i));
-     Celda.addEventListener("contextmenu", (e) => {
-      e.preventDefault(); 
+    Celda.dataset.index = i;
+    Celda.addEventListener("click", () => Revelar(i, true));
+    Celda.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
       PonerBandera(i);
     });
     TableroDOM.appendChild(Celda);
   }
-  GenerarMinas()
-  ObtenerMinasCerca()
+  GenerarMinas();
+  ObtenerMinasCerca();
 }
 
 function GenerarMinas() {
@@ -52,9 +48,8 @@ function GenerarMinas() {
   }
 }
 
-
-function ObtenerMinasCerca(){
-   for (let i = 0; i < Tablero.length; i++) {
+function ObtenerMinasCerca() {
+  for (let i = 0; i < Tablero.length; i++) {
     if (Tablero[i].Minado) continue;
     let Vecinos = ObtenerVecinos(i);
     Tablero[i].MinasCerca = Vecinos.filter((v) => Tablero[v].Minado).length;
@@ -79,7 +74,12 @@ function ObtenerVecinos(celda) {
   return vecinos;
 }
 
-function Revelar(i) {
+function Revelar(i, esClickUsuario = false) {
+  // Solo inicio el timer si es el primer click real del usuario
+  if (esClickUsuario && !juegoIniciado) {
+    iniciarTimer();
+    juegoIniciado = true;
+  }
   const Celda = Tablero[i];
   const CeldaDom = TableroDOM.children[i];
 
@@ -88,24 +88,24 @@ function Revelar(i) {
   Celda.Revelado = true;
   CeldaDom.classList.add("Revelada");
 
- if (Celda.Minado) {
-  Perder(CeldaDom)
-  return;
+  if (Celda.Minado) {
+    Perder(CeldaDom);
+    return;
   }
- // si no hay minas cercas llamar la funcion revelar de cada casilla libre vecina para verificar nuevamente minas cercanas, asi recursivamente hasta q halla
+  // si no hay minas cercas llamar la funcion revelar de cada casilla libre vecina para verificar nuevamente minas cercanas, asi recursivamente hasta q halla
   if (Celda.MinasCerca > 0) {
     CeldaDom.textContent = Celda.MinasCerca;
   } else {
-    ObtenerVecinos(i).forEach((v) => Revelar(v));
+    ObtenerVecinos(i).forEach((v) => Revelar(v, false));
   }
-   VerificarVictoria()
+  VerificarVictoria();
 }
 
 function PonerBandera(i) {
   const Celda = Tablero[i];
   const CeldaDom = TableroDOM.children[i];
 
-  if (Celda.Revelado) return; 
+  if (Celda.Revelado) return;
 
   Celda.Bandera = !Celda.Bandera;
   if (Celda.Bandera) {
@@ -114,61 +114,100 @@ function PonerBandera(i) {
     CeldaDom.textContent = "";
     CeldaDom.classList.remove("Bandera");
   }
-   VerificarVictoria()
+  VerificarVictoria();
 }
 
-document.addEventListener("DOMContentLoaded", IniciarJuego);
+
+let backgroundMusic;
+document.addEventListener("DOMContentLoaded", () => {
+  backgroundMusic = new Audio("assets/sonidos/rizzlas-c418-224649.mp3");
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = 0.5; 
+  backgroundMusic.play();
+  IniciarJuego();
+  const toggleBtn = document.getElementById("toggleMusicBtn");
+  let musicOn = true;
+  toggleBtn.addEventListener("click", () => {
+    if (musicOn) {
+      backgroundMusic.pause();
+      toggleBtn.textContent = "🔇 Musica";
+    } else {
+      backgroundMusic.play();
+      toggleBtn.textContent = "🔊 Musica";
+    }
+    musicOn = !musicOn;
+  });
+});
 
 function RevelarCeldas() {
- for (let i = 0; i < Tablero.length; i++) {
-   const celda = Tablero[i];
-   const celdaDOM = TableroDOM.children[i];
+  for (let i = 0; i < Tablero.length; i++) {
+    const celda = Tablero[i];
+    const celdaDOM = TableroDOM.children[i];
 
-   celdaDOM.classList.add("Revelada");
+    celdaDOM.classList.add("Revelada");
 
-   if (celda.Minado) {
-    celdaDOM.classList.add("Minado");
-    continue;
+    if (celda.Minado) {
+      celdaDOM.classList.add("Minado");
+      continue;
     }
 
     if (celda.MinasCerca > 0) {
-    celdaDOM.textContent = celda.MinasCerca;
-    } 
+      celdaDOM.textContent = celda.MinasCerca;
+    }
   }
 }
 
 function VerificarVictoria() {
-  const reveladas = Tablero.filter((c) => c.Revelado ).length;
-  const noMinas = Tablero.filter((c) => !c.Minado ).length;
-  //si lo unico no revelado son las minas 
-  if (reveladas=== noMinas) {
-     ResultadoDOM.textContent = 'GANASTE';
-     ResultadoDOM.classList.add("ganar");
-     RevelarCeldas();
+  const reveladas = Tablero.filter((c) => c.Revelado).length;
+  const noMinas = Tablero.filter((c) => !c.Minado).length;
+  if (reveladas === noMinas) {
+    ResultadoDOM.textContent = "GANASTE";
+    ResultadoDOM.classList.add("ganar");
+    RevelarCeldas();
+    detenerTimer();
   }
 }
 
-function Perder(celda)
-{
+function Perder(celda) {
   celda.classList.add("Minado");
   RevelarCeldas();
-  ResultadoDOM.textContent = 'PERDISTE';
+  ResultadoDOM.textContent = "PERDISTE";
   ResultadoDOM.classList.add("perder");
-  reiniciarTimer();
+  const explosionAudio = new Audio("assets/sonidos/tnt-explosion.mp3");
+  explosionAudio.play();
+  detenerTimer();
 }
 
+// Variables para el timer
+let timerInterval = null;
+let timerStart = null;
 
 function iniciarTimer() {
-  setInterval(() => {
-    segundos++;
-    const timerDom = document.getElementById("Timer");
-    if (timerDom) {
-      timerDom.textContent = `Tiempo: ${segundos}s`;
-    }
-  }, 1000);
+  detenerTimer();
+  timerStart = Date.now();
+  actualizarTimer();
+  timerInterval = setInterval(actualizarTimer, 1000);
+}
+
+function detenerTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function actualizarTimer() {
+  const timerDom = document.getElementById("Timer");
+  if (!timerDom) return;
+  if (!timerStart) {
+    timerDom.textContent = "Tiempo: 0";
+    return;
+  }
+  const segundos = Math.floor((Date.now() - timerStart) / 1000);
+  timerDom.textContent = `Tiempo: ${segundos}`;
 }
 
 function reiniciarTimer() {
-  segundos = 0;
-  document.getElementById("Timer").textContent = "Tiempo: 0s";
+  detenerTimer();
+  timerStart = null;
+  const timerDom = document.getElementById("Timer");
+  if (timerDom) timerDom.textContent = "Tiempo: 0";
 }

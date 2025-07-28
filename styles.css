@@ -2,10 +2,8 @@ body {
   font-family: sans-serif;
   text-align: center;
   background-color: #298b39;
-  font-family: 'Minecraft', sans-serif;
+  font-family: "Minecraft", sans-serif;
 }
-
-
 
 .Header {
   margin: 0;
@@ -34,35 +32,32 @@ body {
   border: 0px solid #999;
   display: inline-block;
   box-sizing: border-box;
-  background-image: url("Celda.png");
+  background-image: url("assets/img/Celda.png ");
   margin: 0;
   padding: 0;
   border: #624b4b solid;
-  display: flex;               
-  align-items: center;        
-  justify-content: center;     
-  font-weight: bold;         
-  font-size: 25px;     
-  color: #110a7e      
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 25px;
+  color: #110a7e;
 }
-
 
 .Celda.Revelada {
-  background-image: url("Revelada.png");
+  background-image: url("assets/img/Revelada.png");
   background-size: cover;
   background-position: center;
 }
-
 
 .Celda.Minado {
-  background-image: url("Mina.png");
+  background-image: url("assets/img/Mina.png");
   background-size: cover;
   background-position: center;
 }
 
-
-.Celda.Bandera{
-  background-image: url("Bandera.png");
+.Celda.Bandera {
+  background-image: url("assets/img/Bandera.png");
   background-size: cover;
   background-position: center;
 }
@@ -81,3 +76,44 @@ body {
 .Resultado.perder {
   color: red;
 }
+
+.toggle-music {
+  font-family: "Minecraft", sans-serif;
+  top: 20px;
+  right: 30px;
+  background: #214121;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1.1em;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+}
+.toggle-music:hover {
+  background: #444;
+}
+
+#NuevaPartida {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 24px auto 0 auto;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  position: static;
+}
+#NuevaPartida img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 8px;
+}
+#NuevaPartida:hover img {
+  filter: brightness(1.2) drop-shadow(0 0 6px #fff8);
+}
+
+
