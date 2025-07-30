@@ -102,7 +102,6 @@ body {
 }
 
 
-
 #NuevaPartida {
   background: transparent;
   border: none;
@@ -122,6 +121,19 @@ body {
 }
 #NuevaPartida:hover img {
   filter: brightness(1.2) drop-shadow(0 0 6px #fff8);
+}
+
+.info-juego {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.puntos{
+  margin: 0 45px;
+  font-size: 22;
+  color: #222;
 }
 
 

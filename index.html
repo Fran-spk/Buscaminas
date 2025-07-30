@@ -10,19 +10,21 @@
   <body>
     <header class="Header">
       <h1 class="Titulo">Buscaminas</h1>
-        <div class="Titulo">
-          <a href="https://github.com/Fran-spk/Buscaminas" target="_blank">
-            <button class="Titulo-Componentes">Repositorio</button>
-          </a>
-          <button id="toggleMusicBtn" class="Titulo-Componentes">🔊 Musica</button>
+        <div class="Titulo">   
+            <a href="https://github.com/Fran-spk/Buscaminas" target="_blank"><button class="Titulo-Componentes">Repositorio</button></a>      
+            <a href=""> <button class="Titulo-Componentes">Contacto</button></a>
+            <button id="MusicaBtn" class="Titulo-Componentes">🔊 Musica</button>
+         
         </div>
       </header>
     <main>
         <button id = "NuevaPartida">
           <img id="Cara" src="assets/img/personaje.jpg" alt="Nueva Partida">
         </button>
-       <div id="Timer">Tiempo: 0</div>
-       <div id="Banderas">🚩:</div>
+        <div class="info-juego">
+            <h2 class="puntos" id="Timer">Tiempo: 0</h2>
+            <h2 class="puntos" id="Banderas">🚩:</h2>
+        </div>
       <div id="Tablero" class="Tablero"></div>
     </main>
     <div class="Resultado"></div>

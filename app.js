@@ -4,26 +4,27 @@ const MinasTotales = 10;
 let MinasRestantes = MinasTotales;
 let Tablero = [];
 let juegoIniciado = false;
-
+let timer = null;      
+let contador = 0;   
+let audio = new Audio("assets/sonidos/rizzlas-c418-224649.mp3");
 const TableroDOM = document.getElementById("Tablero");
 const ResultadoDOM = document.querySelector(".Resultado");
 const btnNuevaPartida = document.getElementById("NuevaPartida")
 const CaraDOM = document.getElementById("Cara");
 const BanderasDOM = document.getElementById("Banderas");
-
+const timerDOM = document.getElementById("Timer");
+const MusicaDOM = document.getElementById("MusicaBtn");
 
 function IniciarJuego() {
-  // Limpio el DOM y el array Tablero correctamente
   TableroDOM.innerHTML = "";
   Tablero = [];
   TableroDOM.style.gridTemplateColumns = `repeat(${Columnas}, 48px)`;
   juegoIniciado = false; // Reinicio el estado del juego
-  reiniciarTimer(); // Aseguro que el timer muestre 0 al iniciar
   MinasRestantes = MinasTotales;
-if (BanderasDOM) {
-  BanderasDOM.textContent = `🚩: ${MinasRestantes}`;
-}
-
+  if (BanderasDOM) {
+    BanderasDOM.textContent = `🚩: ${MinasRestantes}`;
+  }
+  Musica(true);
   //inicializo el tablero logico y creo las celdas y sus eventos
   for (let i = 0; i < Filas * Columnas; i++) {
     Tablero.push({
@@ -54,9 +55,12 @@ function NuevaPartida() {
   if (CaraDOM) CaraDOM.src = "assets/img/personaje.jpg";
 }
 
-if (btnNuevaPartida) {
-  btnNuevaPartida.addEventListener("click", NuevaPartida);
-}
+CaraDOM.addEventListener("click", () => {
+  NuevaPartida();
+});
+
+
+
 
 
 function GenerarMinas() {
@@ -96,12 +100,13 @@ function ObtenerVecinos(celda) {
   return vecinos;
 }
 
-function Revelar(i, esClickUsuario = false) {
-  // Solo inicio el timer si es el primer click real del usuario
-  if (esClickUsuario && !juegoIniciado) {
+function Revelar(i) {
+
+  const reveladas = Tablero.some(casilla => casilla.Revelado === true); //la primera vez que se revela una celda inicia el contador
+
+  if (!reveladas) {
     iniciarTimer();
-    juegoIniciado = true;
-  }
+  } 
   const Celda = Tablero[i];
   const CeldaDom = TableroDOM.children[i];
 
@@ -136,54 +141,56 @@ function PonerBandera(i) {
   } else {
     CeldaDom.textContent = "";
     CeldaDom.classList.remove("Bandera");
-    MinasTotales++
+    MinasRestantes++
   }
-  
-  if (BanderasDOM) {
-    BanderasDOM.textContent = `🚩: ${MinasRestantes}`;
-  }
-  
+  BanderasDOM.textContent = `🚩: ${MinasRestantes}`;
   VerificarVictoria();
 }
 
-
-let backgroundMusic;
-document.addEventListener("DOMContentLoaded", () => {
-  backgroundMusic = new Audio("assets/sonidos/rizzlas-c418-224649.mp3");
-  backgroundMusic.loop = true;
-  backgroundMusic.volume = 0.5; 
-  backgroundMusic.play();
-  IniciarJuego();
-  const toggleBtn = document.getElementById("toggleMusicBtn");
+function Musica() {
   let musicOn = true;
-  toggleBtn.addEventListener("click", () => {
+  audio.loop = true;
+  audio.volume = 0.1;
+
+  function actualizarEstado() {
     if (musicOn) {
-      backgroundMusic.pause();
-      toggleBtn.textContent = "🔇 Musica";
+      audio.play();
+      MusicaDOM.textContent = "🔊 Musica";
     } else {
-      backgroundMusic.play();
-      toggleBtn.textContent = "🔊 Musica";
+      audio.pause();
+      MusicaDOM.textContent = "🔇 Musica";
     }
+  }
+
+  MusicaDOM.addEventListener("click", () => {
     musicOn = !musicOn;
+    actualizarEstado();
   });
+  actualizarEstado();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  Musica();      
+  NuevaPartida();
 });
 
 function RevelarCeldas() {
-  for (let i = 0; i < Tablero.length; i++) {
+  setTimeout(() => {
+    for (let i = 0; i < Tablero.length; i++) {
     const celda = Tablero[i];
     const celdaDOM = TableroDOM.children[i];
 
     celdaDOM.classList.add("Revelada");
-
+    celda.Revelado = true;
     if (celda.Minado) {
       celdaDOM.classList.add("Minado");
       continue;
     }
-
     if (celda.MinasCerca > 0) {
       celdaDOM.textContent = celda.MinasCerca;
     }
   }
+  }, 1000);
 }
 
 function VerificarVictoria() {
@@ -193,7 +200,7 @@ function VerificarVictoria() {
     ResultadoDOM.textContent = "GANASTE";
     ResultadoDOM.classList.add("ganar");
     RevelarCeldas();
-    detenerTimer();
+    DetenerTimer();
   }
 }
 
@@ -205,39 +212,29 @@ function Perder(celda) {
   ResultadoDOM.classList.add("perder");
   const explosionAudio = new Audio("assets/sonidos/tnt-explosion.mp3");
   explosionAudio.play();
-  detenerTimer();
+  DetenerTimer();
 }
 
-// Variables para el timer
-let timerInterval = null;
-let timerStart = null;
 
 function iniciarTimer() {
-  detenerTimer();
-  timerStart = Date.now();
-  actualizarTimer();
-  timerInterval = setInterval(actualizarTimer, 1000);
+  if (timer !== null) return; 
+  contador = 0;
+
+  timer = setInterval(() => {
+    contador++;
+    if (timerDOM) timerDOM.textContent = `Tiempo: ${contador}`;
+  }, 1000);
 }
 
-function detenerTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-}
 
-function actualizarTimer() {
-  const timerDom = document.getElementById("Timer");
-  if (!timerDom) return;
-  if (!timerStart) {
-    timerDom.textContent = "Tiempo: 0";
-    return;
-  }
-  const segundos = Math.floor((Date.now() - timerStart) / 1000);
-  timerDom.textContent = `Tiempo: ${segundos}`;
-}
 
 function reiniciarTimer() {
-  detenerTimer();
-  timerStart = null;
-  const timerDom = document.getElementById("Timer");
-  if (timerDom) timerDom.textContent = "Tiempo: 0";
+  clearInterval(timer);
+  timer = null;
+  contador = 0;
+  if (timerDOM) timerDOM.textContent = "Tiempo: 0";
+}
+
+function DetenerTimer(){
+   clearInterval(timer);
 }
