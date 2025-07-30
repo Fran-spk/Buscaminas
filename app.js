@@ -18,6 +18,7 @@ var BanderasDOM = document.getElementById('Banderas');
 var timerDOM = document.getElementById('Timer');
 var MusicaDOM = document.getElementById('MusicaBtn');
 var DificultadDOM = document.getElementById('Dificultad');
+var ModoDOM = document.getElementById('ModoBtn');
 
 function InicializarTablero() {
   TableroDOM.innerHTML = '';
@@ -31,6 +32,7 @@ function InicializarTablero() {
   }
 
   Musica();
+  ModoDiaNoche();
 
   for (let i = 0; i < Filas * Columnas; i++) {
   Tablero.push({
@@ -74,6 +76,24 @@ function Musica() {
   }
 
   MusicaDOM.addEventListener('click', ()=> estadoMusica());
+}
+
+function ModoDiaNoche() {
+  var modoDia = true;
+  
+  function cambiarModo() {
+    if (modoDia) {
+      document.body.classList.add('modo-noche');
+      ModoDOM.textContent = '🌙 Modo Noche';
+      modoDia = false;
+    } else {
+      document.body.classList.remove('modo-noche');
+      ModoDOM.textContent = '☀️ Modo Día';
+      modoDia = true;
+    }
+  }
+
+  ModoDOM.addEventListener('click', cambiarModo);
 }
 
 function iniciarTimer() {

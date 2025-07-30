@@ -2,6 +2,23 @@ body {
   font-family: "Minecraft", sans-serif;
   text-align: center;
   background-color: #298b39;
+  background-image: url("assets/img/paisaje-montanas-y-lago-en-minecraft_3840x2128_xtrafondos.com.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transition: all 0.5s ease;
+  image-rendering: auto;
+}
+
+body.modo-noche {
+  background-color: #1a1a2e;
+  background-image: url("assets/img/wp7930288-minecraft-night-wallpapers.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  image-rendering: auto;
 }
 
 .Header {
@@ -66,6 +83,12 @@ body {
   margin-top: 20px;
   padding: 10px;
   color: #222;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+body.modo-noche .Resultado {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .Resultado.ganar {
@@ -150,5 +173,11 @@ body {
   margin: 0 45px;
   font-size: 22px;
   color: #222;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+body.modo-noche .puntos {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
