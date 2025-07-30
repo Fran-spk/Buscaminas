@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <title>Buscaminas</title>
-  </head>
-  <body>
-    <header class="Header">
-      <h1 class="Titulo">Buscaminas</h1>
-        <div class="Titulo">   
-            <a href="https://github.com/Fran-spk/Buscaminas" target="_blank"><button class="Titulo-Componentes">Repositorio</button></a>      
-            <a href=""> <button class="Titulo-Componentes">Contacto</button></a>
-            <button id="MusicaBtn" class="Titulo-Componentes">🔊 Musica</button>
-         
-        </div>
-      </header>
-    <main>
-        <button id = "NuevaPartida">
-          <img id="Cara" src="assets/img/personaje.jpg" alt="Nueva Partida">
-        </button>
-        <div class="info-juego">
-            <h2 class="puntos" id="Timer">Tiempo: 0</h2>
-            <h2 class="puntos" id="Banderas">🚩:</h2>
-        </div>
-      <div id="Tablero" class="Tablero"></div>
-    </main>
-    <div class="Resultado"></div>
-        <script type="text/javascript" src="app.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscaminas</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+  <header class="Header">
+    <h1 class="Titulo">Buscaminas</h1>
+    <div class="Titulo">
+      <a href="https://github.com/Fran-spk/Buscaminas" target="_blank">
+        <button class="Titulo-Componentes">Repositorio</button>
+      </a>
+      <a href="">
+        <button class="Titulo-Componentes">Contacto</button>
+      </a>
+      <button id="MusicaBtn" class="Titulo-Componentes">🔊 Musica</button>
+    </div>
+  </header>
+  <main>
+   <select id="Dificultad">
+     <option value="facil">Fácil</option>
+     <option value="intermedio">Intermedio</option>
+     <option value="dificil">Difícil</option>
+   </select>
+    <button id="NuevaPartida">
+      <img id="Cara" src="assets/img/personaje.jpg" alt="Nueva Partida" />
+    </button>
+    <div class="info-juego">
+      <h2 class="puntos" id="Timer">Tiempo: 0</h2>
+      <h2 class="puntos" id="Banderas">🚩:</h2>
+    </div>
+    <div id="Tablero" class="Tablero"></div>
+  </main>
+  
+  <div class="Resultado"></div>
+  <script src="app.js"></script>
+</body>
 </html>

@@ -1,16 +1,14 @@
 body {
-  font-family: sans-serif;
+  font-family: "Minecraft", sans-serif;
   text-align: center;
   background-color: #298b39;
-  font-family: "Minecraft", sans-serif;
 }
 
 .Header {
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -18,27 +16,26 @@ body {
 }
 
 .Tablero {
-  display: grid;
-  grid-template-columns: repeat(10, 30px);
-  justify-content: center;
-  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Celda {
-  width: 48px;
-  height: 48px;
-  background-size: cover;
-  background-position: center;
-  border: 0px solid #999;
-  display: inline-block;
-  box-sizing: border-box;
-  background-image: url("assets/img/Celda.png ");
-  margin: 0;
-  padding: 0;
-  border: #624b4b solid;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 48px;
+  height: 48px;
+  box-sizing: border-box;
+  border: #624b4b solid;
+  margin: 0;
+  padding: 0;
+  background-image: url("assets/img/Celda.png");
+  background-size: cover;
+  background-position: center;
   font-weight: bold;
   font-size: 25px;
   color: #110a7e;
@@ -63,21 +60,27 @@ body {
 }
 
 .Resultado {
-  margin-top: 20px;
   font-size: 32px;
   font-weight: bold;
   text-align: center;
-  color: #222;
+  margin-top: 20px;
   padding: 10px;
+  color: #222;
 }
+
 .Resultado.ganar {
-  color: rgb(61, 72, 61);
+  color: #3d4843;
 }
+
 .Resultado.perder {
   color: red;
 }
 
 .Titulo-Componentes {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   font-family: "Minecraft", sans-serif;
   background: #214121;
   color: #fff;
@@ -88,30 +91,42 @@ body {
   min-width: 90px;
   height: 40px;
   cursor: pointer;
-  display: inline-flex;
+  box-sizing: border-box;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+#Dificultad{
+  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  text-decoration: none;
-  box-sizing: border-box;
-  transition: background 0.2s;
+  font-family: "Minecraft", sans-serif;
+  background: #214121;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  min-width: 90px;
+  height: 40px;
+  cursor: pointer;
+  margin: 10px 0 0 0 ;
 }
 
 .Titulo-Componentes:hover {
   background: #444;
 }
 
-
 #NuevaPartida {
+  display: block;
+  position: static;
   background: transparent;
   border: none;
   padding: 0;
-  margin: 24px auto 0 auto;
+  margin: 0 auto 0 auto;
   cursor: pointer;
   outline: none;
-  display: block;
-  position: static;
 }
+
 #NuevaPartida img {
   width: 40px;
   height: 40px;
@@ -119,6 +134,7 @@ body {
   background: transparent;
   border-radius: 8px;
 }
+
 #NuevaPartida:hover img {
   filter: brightness(1.2) drop-shadow(0 0 6px #fff8);
 }
@@ -130,10 +146,9 @@ body {
   margin: 0;
 }
 
-.puntos{
+.puntos {
   margin: 0 45px;
-  font-size: 22;
+  font-size: 22px;
   color: #222;
 }
-
 
