@@ -9,12 +9,12 @@
 </head>
 <body>
   <header class="Header">
-    <h1 class="Titulo">Buscaminas</h1>
-    <div class="Titulo">
+    <h1>Buscaminas</h1>
+    <div>
       <a href="https://github.com/Fran-spk/Buscaminas" target="_blank">
         <button class="Titulo-Componentes">Repositorio</button>
       </a>
-      <a href="">
+      <a href="contacto.html">
         <button class="Titulo-Componentes">Contacto</button>
       </a>
       <button id="MusicaBtn" class="Titulo-Componentes">🔊 Musica</button>
@@ -38,6 +38,21 @@
   </main>
   
   <div class="Resultado"></div>
+  <div id="Historial" class="Historial"></div>
+  
+  <!-- Modal para nombre del jugador -->
+  <div id="ModalNombre" class="modal">
+    <div class="modal-content">
+      <h3>¡Partida Terminada!</h3>
+      <p>Ingresa tu nombre para guardar el resultado:</p>
+      <input type="text" id="NombreJugador" placeholder="Tu nombre" minlength="3" maxlength="20">
+      <div class="modal-buttons">
+        <button id="GuardarNombre" class="btn-Guardar">Guardar</button>
+        <button id="CancelarNombre" class="btn-Cancelar">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
   <script src="app.js"></script>
 </body>
 </html>

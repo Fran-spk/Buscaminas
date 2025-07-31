@@ -91,6 +91,210 @@ body.modo-noche .Resultado {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
+.Historial {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Historial h3 {
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.Historial table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.Historial th,
+.Historial td {
+  padding: 8px 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.Historial th {
+  background-color: #214121;
+  color: white;
+  font-weight: bold;
+}
+
+.Historial tr:nth-child(even) {
+  background-color: rgba(33, 65, 33, 0.1);
+}
+
+.Historial tr:hover {
+  background-color: rgba(33, 65, 33, 0.2);
+}
+
+.Historial .ganar {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.Historial .perder {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+body.modo-noche .Historial {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+
+body.modo-noche .Historial h3 {
+  color: #fff;
+}
+
+body.modo-noche .Historial th {
+  background-color: #1a1a2e;
+}
+
+body.modo-noche .Historial tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.modo-noche .Historial tr:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos del Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h3 {
+  color: #214121;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.modal-content p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "Minecraft", sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: #214121;
+  box-shadow: 0 0 0 3px rgba(33, 65, 33, 0.1);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-Guardar,
+.btn-Cancelar {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Minecraft", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 100px;
+}
+
+.btn-Guardar {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-Guardar:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-Cancelar {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-Cancelar:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+
+body.modo-noche .modal-content {
+  background-color: #1a1a2e;
+  color: #fff;
+}
+
+body.modo-noche .modal-content h3 {
+  color: #fff;
+}
+
+body.modo-noche .modal-content p {
+  color: #ccc;
+}
+
+body.modo-noche .modal-content input {
+  background-color: #2a2a3e;
+  color: #fff;
+  border-color: #444;
+}
+
+body.modo-noche .modal-content input:focus {
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+}
+
+
+
 .Resultado.ganar {
   color: #3d4843;
 }
@@ -147,11 +351,11 @@ body.modo-noche .Resultado {
   padding: 0;
   margin: 0 auto 0 auto;
   cursor: pointer;
-  outline: none;
-}
+    outline: none;
+  }
 
-#NuevaPartida img {
-  width: 40px;
+  #NuevaPartida img {
+    width: 40px;
   height: 40px;
   object-fit: contain;
   background: transparent;

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto - Buscaminas</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" type="text/css" href="contacto.css" />
+</head>
+<body>
+  <header class="Header">
+    <h1 class="Titulo">Buscaminas</h1>
+    <div class="Titulo">
+      <a href="index.html">
+        <button class="Titulo-Componentes">Inicio</button>
+      </a>
+      <a href="https://github.com/Fran-spk/Buscaminas" target="_blank">
+        <button class="Titulo-Componentes">Repositorio</button>
+      </a>
+      <button id="MusicaBtn" class="Titulo-Componentes">🔊 Musica</button>
+      <button id="ModoBtn" class="Titulo-Componentes">☀️ Modo Día</button>
+    </div>
+  </header>
+
+  <main class="ContactoPrincipal">
+    <div class="ContactoContenedor">
+      <h2 class="ContactoTitulo">Contacto</h2>
+      <p class="ContactoDescripcion">¿Tenés alguna pregunta o sugerencia? ¡Mandanos un mensaje!</p>
+      
+      <form id="contactoForm" class="FormularioContacto">
+        <div class="GrupoCampo">
+          <label for="nombre" class="EtiquetaCampo">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" class="CampoEntrada" placeholder="Tu nombre" required>
+          <span class="MensajeError" id="nombreError"></span>
+        </div>
+        
+        <div class="GrupoCampo">
+          <label for="email" class="EtiquetaCampo">Tu Email:</label>
+          <input type="email" id="email" name="email" class="CampoEntrada" placeholder="tu@email.com" required>
+          <span class="MensajeError" id="emailError"></span>
+        </div>
+        
+        <div class="GrupoCampo">
+          <label for="destinatario" class="EtiquetaCampo">Email Destinatario:</label>
+          <input type="email" id="destinatario" name="destinatario" class="CampoEntrada CampoSoloLectura" value="gerorc28@gmail.com" readonly>
+        </div>
+        
+        <div class="GrupoCampo">
+          <label for="mensaje" class="EtiquetaCampo">Mensaje:</label>
+          <textarea id="mensaje" name="mensaje" class="CampoTexto" placeholder="Escribí tu mensaje aca..." required></textarea>
+          <span class="MensajeError" id="mensajeError"></span>
+        </div>
+        
+        <div class="ContenedorBotones">
+          <button type="submit" class="BotonEnviar">Enviar Mensaje</button>
+          <button type="reset" class="BotonLimpiar">Limpiar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="contacto.js"></script>
+</body>
+</html> 

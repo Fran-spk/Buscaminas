@@ -1,0 +1,242 @@
+/* Contenedor principal de contacto */
+.ContactoPrincipal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding: 20px;
+}
+
+/* Contenedor del formulario */
+.ContactoContenedor {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  animation: entradaFormulario 0.5s ease-out;
+}
+
+/* Título del formulario */
+.ContactoTitulo {
+  color: #214121;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 2.5em;
+}
+
+/* Descripción del formulario */
+.ContactoDescripcion {
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1em;
+}
+
+/* Formulario de contacto */
+.FormularioContacto {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Grupo de campos */
+.GrupoCampo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Etiquetas de campos */
+.EtiquetaCampo {
+  color: #214121;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* Campos de entrada */
+.CampoEntrada,
+.CampoTexto {
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-family: "Minecraft", sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.CampoEntrada:focus,
+.CampoTexto:focus {
+  outline: none;
+  border-color: #214121;
+  box-shadow: 0 0 0 3px rgba(33, 65, 33, 0.1);
+}
+
+/* Campo de texto específico */
+.CampoTexto {
+  resize: vertical;
+  min-height: 120px;
+  font-family: "Minecraft", sans-serif;
+}
+
+/* Campo de solo lectura */
+.CampoSoloLectura {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Texto de ayuda */
+.TextoAyuda {
+  color: #6c757d;
+  font-size: 0.85em;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Mensaje de error */
+.MensajeError {
+  color: #dc3545;
+  font-size: 0.9em;
+  min-height: 20px;
+  display: block;
+}
+
+/* Estados de campos */
+.CampoError {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.CampoExito {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+/* Contenedor de botones */
+.ContenedorBotones {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Botones del formulario */
+.BotonEnviar,
+.BotonLimpiar {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Minecraft", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+/* Botón enviar */
+.BotonEnviar {
+  background-color: #28a745;
+  color: white;
+}
+
+.BotonEnviar:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.BotonEnviar:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Botón limpiar */
+.BotonLimpiar {
+  background-color: #6c757d;
+  color: white;
+}
+
+.BotonLimpiar:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Modo noche */
+body.modo-noche .ContactoContenedor {
+  background: rgba(26, 26, 46, 0.95);
+  color: #fff;
+}
+
+body.modo-noche .ContactoTitulo {
+  color: #fff;
+}
+
+body.modo-noche .ContactoDescripcion {
+  color: #ccc;
+}
+
+body.modo-noche .EtiquetaCampo {
+  color: #fff;
+}
+
+body.modo-noche .CampoEntrada,
+body.modo-noche .CampoTexto {
+  background-color: #2a2a3e;
+  color: #fff;
+  border-color: #444;
+}
+
+body.modo-noche .CampoEntrada:focus,
+body.modo-noche .CampoTexto:focus {
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+}
+
+body.modo-noche .CampoSoloLectura {
+  background-color: #1a1a2e;
+  color: #888;
+  border-color: #444;
+}
+
+body.modo-noche .TextoAyuda {
+  color: #888;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ContactoContenedor {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+  
+  .ContactoTitulo {
+    font-size: 2em;
+  }
+  
+  .ContenedorBotones {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .BotonEnviar,
+  .BotonLimpiar {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Animación de entrada */
+@keyframes entradaFormulario {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
