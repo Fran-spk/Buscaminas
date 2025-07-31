@@ -25,6 +25,8 @@ var ModalNombre = document.getElementById('ModalNombre');
 var NombreJugadorInput = document.getElementById('NombreJugador');
 var GuardarNombreBtn = document.getElementById('GuardarNombre');
 var CancelarNombreBtn = document.getElementById('CancelarNombre');
+var errorDOM = document.getElementById('ErrorNombreJugador');
+
 
 function InicializarTablero() {
   TableroDOM.innerHTML = '';
@@ -188,6 +190,9 @@ function SolicitarNombre() {
   ModalNombre.style.display = 'block';
   NombreJugadorInput.value = '';
   NombreJugadorInput.focus();
+
+  errorDOM.textContent = ''; //ocultar el mensaje de error
+  errorDOM.style.display = 'none'; 
 }
 
 function CerrarModal() {
@@ -195,13 +200,22 @@ function CerrarModal() {
 }
 
 function GuardarNombreJugador() {
-  nombreJugador = NombreJugadorInput.value.trim() || 'Jugador';
-  CerrarModal();
+  const nombreIngresado = NombreJugadorInput.value.trim();
   
-  // Guardar la partida inmediatamente después de confirmar el nombre
+  if (nombreIngresado.length < 3) {
+    errorDOM.textContent = 'El nombre debe tener al menos 3 letras.';
+    errorDOM.style.display = 'block';
+    return;
+  }
+
+  errorDOM.style.display = 'none';
+  nombreJugador = nombreIngresado;
+  CerrarModal();
+
   const resultadoActual = ResultadoDOM.textContent === 'GANASTE' ? 'ganar' : 'perder';
   GuardarPartida(resultadoActual, contador);
 }
+
 
 function IniciarTimer() {
   if (timer !== null) return;
