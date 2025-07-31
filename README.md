@@ -16,3 +16,7 @@ Animaciones y efectos visuales inspirados en el entorno cúbico.
 Función de marcar casillas con banderas (por ejemplo una antorcha).
 
 Reinicio rápido y contador de tiempo.
+
+Pages
+
+https://fran-spk.github.io/Buscaminas/
