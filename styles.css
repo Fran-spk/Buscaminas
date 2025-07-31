@@ -11,7 +11,7 @@ body {
   image-rendering: auto;
 }
 
-body.modo-noche {
+body.ModoNoche {
   background-color: #1a1a2e;
   background-image: url("assets/img/wp7930288-minecraft-night-wallpapers.png");
   background-size: cover;
@@ -31,6 +31,30 @@ body.modo-noche {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background-color: #213d2693;
 }
+
+.HeaderBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Minecraft", sans-serif;
+  background: #214121;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1.1em;
+  min-width: 90px;
+  height: 40px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+.HeaderBtn:hover {
+  background: #444;
+}
+
 
 .Tablero {
   display: flex;
@@ -86,7 +110,7 @@ body.modo-noche {
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-body.modo-noche .Resultado {
+body.ModoNoche .Resultado {
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
@@ -143,29 +167,29 @@ body.modo-noche .Resultado {
   font-weight: bold;
 }
 
-body.modo-noche .Historial {
+body.ModoNoche .Historial {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
 }
 
-body.modo-noche .Historial h3 {
+body.ModoNoche .Historial h3 {
   color: #fff;
 }
 
-body.modo-noche .Historial th {
+body.ModoNoche .Historial th {
   background-color: #1a1a2e;
 }
 
-body.modo-noche .Historial tr:nth-child(even) {
+body.ModoNoche .Historial tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-body.modo-noche .Historial tr:hover {
+body.ModoNoche .Historial tr:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Estilos del Modal */
-.modal {
+.Modal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -177,7 +201,7 @@ body.modo-noche .Historial tr:hover {
   backdrop-filter: blur(5px);
 }
 
-.modal-content {
+.ModalContenido {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 30px;
@@ -186,10 +210,10 @@ body.modo-noche .Historial tr:hover {
   max-width: 400px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  animation: modalSlideIn 0.3s ease-out;
+  animation: ModalSlideIn 0.3s ease-out;
 }
 
-@keyframes modalSlideIn {
+@keyframes ModalSlideIn {
   from {
     opacity: 0;
     transform: translateY(-50px);
@@ -200,19 +224,19 @@ body.modo-noche .Historial tr:hover {
   }
 }
 
-.modal-content h3 {
+.ModalContenido h3 {
   color: #214121;
   margin-bottom: 15px;
   font-size: 24px;
 }
 
-.modal-content p {
+.ModalContenido p {
   color: #666;
   margin-bottom: 20px;
   font-size: 16px;
 }
 
-.modal-content input {
+.ModalContenido input {
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
@@ -224,20 +248,20 @@ body.modo-noche .Historial tr:hover {
   transition: border-color 0.3s;
 }
 
-.modal-content input:focus {
+.ModalContenido input:focus {
   outline: none;
   border-color: #214121;
   box-shadow: 0 0 0 3px rgba(33, 65, 33, 0.1);
 }
 
-.modal-buttons {
+.ModalBtn {
   display: flex;
   gap: 15px;
   justify-content: center;
 }
 
-.btn-Guardar,
-.btn-Cancelar {
+.GuardarBtn,
+.CancelarBtn {
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
@@ -248,52 +272,50 @@ body.modo-noche .Historial tr:hover {
   min-width: 100px;
 }
 
-.btn-Guardar {
+.GuardarBtn {
   background-color: #28a745;
   color: white;
 }
 
-.btn-Guardar:hover {
+.GuardarBtn:hover {
   background-color: #218838;
   transform: translateY(-2px);
 }
 
-.btn-Cancelar {
+.CancelarBtn {
   background-color: #6c757d;
   color: white;
 }
 
-.btn-Cancelar:hover {
+.CancelarBtn:hover {
   background-color: #5a6268;
   transform: translateY(-2px);
 }
 
 
-body.modo-noche .modal-content {
+body.ModoNoche .ModalContenido {
   background-color: #1a1a2e;
   color: #fff;
 }
 
-body.modo-noche .modal-content h3 {
+body.ModoNoche .ModalContenido h3 {
   color: #fff;
 }
 
-body.modo-noche .modal-content p {
+body.ModoNoche .ModalContenido p {
   color: #ccc;
 }
 
-body.modo-noche .modal-content input {
+body.ModoNoche .ModalContenido input {
   background-color: #2a2a3e;
   color: #fff;
   border-color: #444;
 }
 
-body.modo-noche .modal-content input:focus {
+body.ModoNoche .ModalContenido input:focus {
   border-color: #4a9eff;
   box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
 }
-
-
 
 .Resultado.ganar {
   color: #3d4843;
@@ -303,25 +325,8 @@ body.modo-noche .modal-content input:focus {
   color: red;
 }
 
-.Titulo-Componentes {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: "Minecraft", sans-serif;
-  background: #214121;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 1.1em;
-  min-width: 90px;
-  height: 40px;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition: background 0.2s;
-  text-decoration: none;
-}
+
+
 
 #Dificultad{
   display: flex;
@@ -339,9 +344,6 @@ body.modo-noche .modal-content input:focus {
   margin: 10px 0 0 0 ;
 }
 
-.Titulo-Componentes:hover {
-  background: #444;
-}
 
 #NuevaPartida {
   display: block;
@@ -366,22 +368,23 @@ body.modo-noche .modal-content input:focus {
   filter: brightness(1.2) drop-shadow(0 0 6px #fff8);
 }
 
-.info-juego {
+.InfoJuego {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
 }
 
-.puntos {
+.Puntos {
   margin: 0 45px;
   font-size: 22px;
   color: #222;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-body.modo-noche .puntos {
+body.ModoNoche .Puntos {
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
+
 

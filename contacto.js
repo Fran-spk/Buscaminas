@@ -199,11 +199,11 @@ function ModoDiaNoche() {
   
   function cambiarModo() {
     if (modoDia) {
-      document.body.classList.add('modo-noche');
+      document.body.classList.add('ModoNoche');
       ModoDOM.textContent = '🌙 Modo Noche';
       modoDia = false;
     } else {
-      document.body.classList.remove('modo-noche');
+      document.body.classList.remove('ModoNoche');
       ModoDOM.textContent = '☀️ Modo Día';
       modoDia = true;
     }

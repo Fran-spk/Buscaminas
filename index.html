@@ -12,13 +12,13 @@
     <h1>Buscaminas</h1>
     <div>
       <a href="https://github.com/Fran-spk/Buscaminas" target="_blank">
-        <button class="Titulo-Componentes">Repositorio</button>
+        <button class="HeaderBtn">Repositorio</button>
       </a>
       <a href="contacto.html">
-        <button class="Titulo-Componentes">Contacto</button>
+        <button class="HeaderBtn">Contacto</button>
       </a>
-      <button id="MusicaBtn" class="Titulo-Componentes">🔊 Musica</button>
-      <button id="ModoBtn" class="Titulo-Componentes">☀️ Modo Día</button>
+      <button id="MusicaBtn" class="HeaderBtn">🔊 Musica</button>
+      <button id="ModoBtn" class="HeaderBtn">☀️ Modo Día</button>
     </div>
   </header>
   <main>
@@ -30,9 +30,9 @@
     <button id="NuevaPartida">
       <img id="Cara" src="assets/img/personaje.jpg" alt="Nueva Partida" />
     </button>
-    <div class="info-juego">
-      <h2 class="puntos" id="Timer">Tiempo: 0</h2>
-      <h2 class="puntos" id="Banderas">🚩:</h2>
+    <div class="InfoJuego">
+      <h2 class="Puntos" id="Timer">Tiempo: 0</h2>
+      <h2 class="Puntos" id="Banderas">🚩:</h2>
     </div>
     <div id="Tablero" class="Tablero"></div>
   </main>
@@ -40,15 +40,15 @@
   <div class="Resultado"></div>
   <div id="Historial" class="Historial"></div>
   
-  <!-- Modal para nombre del jugador -->
-  <div id="ModalNombre" class="modal">
-    <div class="modal-content">
+  <!-- Modal -->
+  <div id="ModalNombre" class="Modal">
+    <div class="ModalContenido">
       <h3>¡Partida Terminada!</h3>
       <p>Ingresa tu nombre para guardar el resultado:</p>
       <input type="text" id="NombreJugador" placeholder="Tu nombre" minlength="3" maxlength="20">
-      <div class="modal-buttons">
-        <button id="GuardarNombre" class="btn-Guardar">Guardar</button>
-        <button id="CancelarNombre" class="btn-Cancelar">Cancelar</button>
+      <div class="ModalBtn">
+        <button id="GuardarNombre" class="GuardarBtn">Guardar</button>
+        <button id="CancelarNombre" class="CancelarBtn">Cancelar</button>
       </div>
     </div>
   </div>

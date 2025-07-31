@@ -57,6 +57,13 @@ function InicializarTablero() {
     e.preventDefault();
     PonerBandera(i);
   });
+  Celda.addEventListener('mousedown', function (e) {
+  if ((e.button === 1) || (e.button === 0 && Tablero[i].Revelado && Tablero[i].MinasCerca > 0)) {
+    e.preventDefault();
+    Chordear(i);
+  }
+});
+
 
   TableroDOM.appendChild(Celda);
   }
@@ -70,7 +77,7 @@ function Musica() {
   audio.loop = true;
   audio.volume = 0.1;
 
-  function estadoMusica() {
+  function EstadoMusica() {
     if (musicOn) {
       audio.play();
       MusicaDOM.textContent = '🔊 Musica';
@@ -81,36 +88,36 @@ function Musica() {
      musicOn = !musicOn;
   }
 
-  MusicaDOM.addEventListener('click', ()=> estadoMusica());
+  MusicaDOM.addEventListener('click', ()=> EstadoMusica());
 }
 
 function ModoDiaNoche() {
   var modoDia = true;
   
-  function cambiarModo() {
+  function CambiarModo() {
     if (modoDia) {
-      document.body.classList.add('modo-noche');
+      document.body.classList.add('ModoNoche');
       ModoDOM.textContent = '🌙 Modo Noche';
       modoDia = false;
     } else {
-      document.body.classList.remove('modo-noche');
+      document.body.classList.remove('ModoNoche');
       ModoDOM.textContent = '☀️ Modo Día';
       modoDia = true;
     }
   }
 
-  ModoDOM.addEventListener('click', cambiarModo);
+  ModoDOM.addEventListener('click', CambiarModo);
 }
 
 // Funciones para LocalStorage
-function cargarPartidasGuardadas() {
+function CargarPartidasGuardadas() {
   const partidas = localStorage.getItem('buscaminas_partidas');
   if (partidas) {
     partidasGuardadas = JSON.parse(partidas);
   }
 }
 
-function guardarPartida(resultado, duracion) {
+function GuardarPartida(resultado, duracion) {
   const partida = {
     nombre: nombreJugador || 'Jugador',
     resultado: resultado, // 'ganar' o 'perder'
@@ -131,10 +138,10 @@ function guardarPartida(resultado, duracion) {
   }
   
   localStorage.setItem('buscaminas_partidas', JSON.stringify(partidasGuardadas));
-  mostrarHistorial();
+  MostrarHistorial();
 }
 
-function mostrarHistorial() {
+function MostrarHistorial() {
   const historialContainer = document.getElementById('Historial');
   if (!historialContainer) return;
   
@@ -166,7 +173,7 @@ function mostrarHistorial() {
     fila.innerHTML = `
       <td>${partida.nombre}</td>
       <td class="${partida.resultado}">${partida.resultado === 'ganar' ? '✅ Ganó' : '❌ Perdió'}</td>
-      <td>${partida.duracion}s</td>
+      <td>${partida.duracion} segs</td>
       <td>${partida.dificultad}</td>
       <td>${partida.fecha}</td>
       <td>${partida.hora}</td>
@@ -177,26 +184,26 @@ function mostrarHistorial() {
   historialContainer.appendChild(tabla);
 }
 
-function solicitarNombre() {
+function SolicitarNombre() {
   ModalNombre.style.display = 'block';
   NombreJugadorInput.value = '';
   NombreJugadorInput.focus();
 }
 
-function cerrarModal() {
+function CerrarModal() {
   ModalNombre.style.display = 'none';
 }
 
-function guardarNombreJugador() {
+function GuardarNombreJugador() {
   nombreJugador = NombreJugadorInput.value.trim() || 'Jugador';
-  cerrarModal();
+  CerrarModal();
   
   // Guardar la partida inmediatamente después de confirmar el nombre
   const resultadoActual = ResultadoDOM.textContent === 'GANASTE' ? 'ganar' : 'perder';
-  guardarPartida(resultadoActual, contador);
+  GuardarPartida(resultadoActual, contador);
 }
 
-function iniciarTimer() {
+function IniciarTimer() {
   if (timer !== null) return;
   contador = 0;
   tiempoInicio = new Date();
@@ -206,7 +213,7 @@ function iniciarTimer() {
   }, 1000);
 }
 
-function reiniciarTimer() {
+function ReiniciarTimer() {
   clearInterval(timer);
   timer = null;
   contador = 0;
@@ -289,7 +296,7 @@ function VerificarVictoria() {
     ResultadoDOM.classList.add('ganar');
     RevelarCeldas();
     DetenerTimer();
-    solicitarNombre();
+    SolicitarNombre();
   }
 }
 
@@ -304,20 +311,21 @@ function Perder(celda) {
   var explosionAudio = new Audio('assets/sonidos/tnt-explosion.mp3');
   explosionAudio.play();
   DetenerTimer();
-  solicitarNombre();
+  SolicitarNombre();
 }
 
 function Revelar(i) {
   if (!juegoIniciado) {
     juegoIniciado = true;
-    iniciarTimer();
+    IniciarTimer();
   }
 
   var Celda = Tablero[i];
   var CeldaDom = TableroDOM.children[i];
 
-  if (Celda.Revelado || Celda.Bandera) return;
-
+  if (Celda.Revelado) return;
+  if (Celda.Bandera) return;
+  
   Celda.Revelado = true;
   CeldaDom.classList.add('Revelada');
 
@@ -337,6 +345,23 @@ function Revelar(i) {
 
   VerificarVictoria();
 }
+
+function Chordear(i) {
+  const celda = Tablero[i];
+  if (!celda.Revelado || celda.MinasCerca === 0) return;
+
+  const vecinos = ObtenerVecinos(i);
+  const banderasCerca = vecinos.filter(idx => Tablero[idx].Bandera).length;
+
+  if (banderasCerca === celda.MinasCerca) {
+    vecinos.forEach(idx => {
+      if (!Tablero[idx].Bandera && !Tablero[idx].Revelado) {
+        Revelar(idx);
+      }
+    });
+  }
+}
+
 
 function PonerBandera(i) {
   var Celda = Tablero[i];
@@ -362,7 +387,7 @@ function PonerBandera(i) {
 function NuevaPartida() {
   ResultadoDOM.textContent = '';
   ResultadoDOM.classList.remove('ganar', 'perder');
-  reiniciarTimer();
+  ReiniciarTimer();
   InicializarTablero();
   if (CaraDOM) {
     CaraDOM.src = 'assets/img/personaje.jpg';
@@ -374,27 +399,27 @@ CaraDOM.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded',  () => {
-  cargarPartidasGuardadas();
+  CargarPartidasGuardadas();
   Musica();
   Dificultad();
   NuevaPartida();
-  mostrarHistorial();
+  MostrarHistorial();
   
   // Event listeners para el modal
-  GuardarNombreBtn.addEventListener('click', guardarNombreJugador);
-  CancelarNombreBtn.addEventListener('click', cerrarModal);
+  GuardarNombreBtn.addEventListener('click', GuardarNombreJugador);
+  CancelarNombreBtn.addEventListener('click', CerrarModal);
   
   // Cerrar modal con Enter
   NombreJugadorInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-      guardarNombreJugador();
+      GuardarNombreJugador();
     }
   });
   
   // Cerrar modal haciendo clic fuera
   ModalNombre.addEventListener('click', function(e) {
     if (e.target === ModalNombre) {
-      cerrarModal();
+      CerrarModal();
     }
   });
 });

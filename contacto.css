@@ -166,43 +166,43 @@
 }
 
 /* Modo noche */
-body.modo-noche .ContactoContenedor {
+body.ModoNoche .ContactoContenedor {
   background: rgba(26, 26, 46, 0.95);
   color: #fff;
 }
 
-body.modo-noche .ContactoTitulo {
+body.ModoNoche .ContactoTitulo {
   color: #fff;
 }
 
-body.modo-noche .ContactoDescripcion {
+body.ModoNoche .ContactoDescripcion {
   color: #ccc;
 }
 
-body.modo-noche .EtiquetaCampo {
+body.ModoNoche .EtiquetaCampo {
   color: #fff;
 }
 
-body.modo-noche .CampoEntrada,
-body.modo-noche .CampoTexto {
+body.ModoNoche .CampoEntrada,
+body.ModoNoche .CampoTexto {
   background-color: #2a2a3e;
   color: #fff;
   border-color: #444;
 }
 
-body.modo-noche .CampoEntrada:focus,
-body.modo-noche .CampoTexto:focus {
+body.ModoNoche .CampoEntrada:focus,
+body.ModoNoche .CampoTexto:focus {
   border-color: #4a9eff;
   box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
 }
 
-body.modo-noche .CampoSoloLectura {
+body.ModoNoche .CampoSoloLectura {
   background-color: #1a1a2e;
   color: #888;
   border-color: #444;
 }
 
-body.modo-noche .TextoAyuda {
+body.ModoNoche .TextoAyuda {
   color: #888;
 }
 
