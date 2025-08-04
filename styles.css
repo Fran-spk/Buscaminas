@@ -124,17 +124,27 @@ body.ModoNoche .Resultado {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.Historial {
-  margin: 20px auto;
-  max-width: 800px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-  overflow-y: auto;
-  width: 90%;
+.Historial_modal{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1000;
 
+}
+
+.Historial {
+  background-color: white;
+  width: 60%;
+  max-height: 80%;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .Historial h3 {
@@ -168,16 +178,6 @@ body.ModoNoche .Resultado {
 
 .Historial tr:hover {
   background-color: rgba(33, 65, 33, 0.2);
-}
-
-.Historial .ganar {
-  color: #28a745;
-  font-weight: bold;
-}
-
-.Historial .perder {
-  color: #dc3545;
-  font-weight: bold;
 }
 
 body.ModoNoche .Historial {

@@ -14,6 +14,7 @@ var nombreJugador = '';
 var tiempoInicio = null;
 var TableroDOM = document.getElementById('Tablero');
 var ResultadoDOM = document.querySelector('.Resultado');
+var ResultadosBtn = document.getElementById('ResultadosBtn');
 var btnNuevaPartida = document.getElementById('NuevaPartida');
 var CaraDOM = document.getElementById('Cara');
 var BanderasDOM = document.getElementById('Banderas');
@@ -87,6 +88,7 @@ function IniciarTimer() {
     if (timerDOM) timerDOM.textContent = 'Tiempo: ' + contador;
   }, 1000);
 }
+
 
 function ReiniciarTimer() {
   clearInterval(timer);
@@ -186,7 +188,6 @@ function Perder(celda) {
   var explosionAudio = new Audio('assets/sonidos/tnt-explosion.mp3');
   explosionAudio.play();
   DetenerTimer();
-  SolicitarNombre();
 }
 
 function Revelar(i) {
@@ -272,24 +273,21 @@ function NuevaPartida() {
 CaraDOM.addEventListener('click', NuevaPartida);
 
 document.addEventListener('DOMContentLoaded',  function() {
-  CargarPartidasGuardadas();
   Musica();
   Dificultad();
   NuevaPartida();
-  MostrarHistorial();
   AplicarModoGuardado();
-  // Event listeners para el modal
+
   GuardarNombreBtn.addEventListener('click', GuardarNombreJugador);
   CancelarNombreBtn.addEventListener('click', CerrarModal);
 
-  // Cerrar modal con Enter
+
   NombreJugadorInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       GuardarNombreJugador();
     }
   });
 
-  // Cerrar modal haciendo clic fuera
   ModalNombre.addEventListener('click', function(e) {
     if (e.target === ModalNombre) {
       CerrarModal();
@@ -378,7 +376,6 @@ function CargarPartidasGuardadas() {
 function GuardarPartida(resultado, duracion) {
   var partida = {
     nombre: nombreJugador || 'Jugador',
-    resultado: resultado,
     duracion: duracion,
     dificultad: DificultadDOM.value,
     fecha: new Date().toLocaleString()
@@ -388,17 +385,45 @@ function GuardarPartida(resultado, duracion) {
   MostrarHistorial();
 }
 
-function MostrarHistorial() {
-  var historialDOM = document.getElementById('Historial');
-  if (!historialDOM) return;
+ResultadosBtn.addEventListener('click', function () {
+  const modal = document.getElementById('ModalHistorial');
 
-  historialDOM.innerHTML = '';
+  if (modal.style.display === 'flex') {
+    modal.style.display = 'none';
+  } else {
+    MostrarHistorial(); 
+    modal.style.display = 'flex';
+  }
+});
+
+document.getElementById('ModalHistorial').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.style.display = 'none';
+  }
+});
+
+
+function MostrarHistorial() {
+  CargarPartidasGuardadas();
+  const historialDOM = document.getElementById('Historial');
+  const tbody = historialDOM.querySelector('tbody');
+  tbody.innerHTML = ''; 
+
   partidasGuardadas.forEach(function(p) {
-    var li = document.createElement('li');
-    li.textContent = p.fecha + ' - ' + p.nombre + ' - ' + p.resultado + ' - ' + p.duracion + ' seg - ' + p.dificultad;
-    historialDOM.appendChild(li);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${p.fecha}</td>
+      <td>${p.nombre}</td>
+      <td>${p.duracion} seg</td>
+      <td>${p.dificultad}</td>
+    `;
+    tbody.appendChild(tr);
   });
 }
+
+
+
+
 
 function SolicitarNombre() {
   ModalNombre.style.display = 'block';
@@ -417,7 +442,6 @@ function GuardarNombreJugador() {
   ModalNombre.style.display = 'none';
 
   var duracion = contador;
-  var resultado = ResultadoDOM.textContent === 'GANASTE' ? 'Ganó' : 'Perdió';
   GuardarPartida(resultado, duracion);
 }
 
