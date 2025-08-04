@@ -88,7 +88,10 @@ body.ModoNoche {
   background-position: center;
   font-weight: bold;
   font-size: 25px;
-  color: #110a7e;
+  color: #000000;
+  text-shadow:
+    -1px -1px 0 #ffffff,
+    -1px  1px 0 #ffffff;
 }
 
 .Celda.Revelada {
@@ -423,7 +426,7 @@ body.ModoNoche .Puntos {
     margin: 0 ;
     justify-content: start;
     min-width: max-content;
-    transform: scale(1); /* sin escala, solo scroll */
+    transform: scale(1);
   }
 
 .Header {
