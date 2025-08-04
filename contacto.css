@@ -125,7 +125,7 @@
 }
 
 /* Botones del formulario */
-.BotonEnviar,
+.btn-enviar,
 .BotonLimpiar {
   padding: 12px 30px;
   border: none;
@@ -138,17 +138,17 @@
 }
 
 /* Botón enviar */
-.BotonEnviar {
+.btn-enviar {
   background-color: #28a745;
   color: white;
 }
 
-.BotonEnviar:hover {
+.btn-enviar:hover {
   background-color: #218838;
   transform: translateY(-2px);
 }
 
-.BotonEnviar:disabled {
+.btn-enviar:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
   transform: none;
@@ -222,7 +222,7 @@ body.ModoNoche .TextoAyuda {
     align-items: center;
   }
   
-  .BotonEnviar,
+  .btn-enviar,
   .BotonLimpiar {
     width: 100%;
     max-width: 200px;

@@ -27,7 +27,6 @@ var GuardarNombreBtn = document.getElementById('GuardarNombre');
 var CancelarNombreBtn = document.getElementById('CancelarNombre');
 var errorDOM = document.getElementById('ErrorNombreJugador');
 
-
 function InicializarTablero() {
   TableroDOM.innerHTML = '';
   Tablero = [];
@@ -41,181 +40,43 @@ function InicializarTablero() {
 
   Musica();
   ModoDiaNoche();
+  for (var i = 0; i < Filas * Columnas; i++) {
+    Tablero.push({
+      Minado: false,
+      Revelado: false,
+      Bandera: false,
+      MinasCerca: 0
+    });
 
-  for (let i = 0; i < Filas * Columnas; i++) {
-  Tablero.push({
-    Minado: false,
-    Revelado: false,
-    Bandera: false,
-    MinasCerca: 0
-  });
+    var Celda = document.createElement('div');
+    Celda.classList.add('Celda');
+    Celda.dataset.index = i;
 
-  var Celda = document.createElement('div');
-  Celda.classList.add('Celda');
-  Celda.dataset.index = i;
+    Celda.addEventListener('click', (function(index) {
+      return function() {
+        Revelar(index);
+      };
+    })(i));
+    
+    Celda.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      PonerBandera(parseInt(this.dataset.index, 10));
+    });
 
-  Celda.addEventListener('click', () => Revelar(i));  
-  Celda.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    PonerBandera(i);
-  });
-  Celda.addEventListener('mousedown', function (e) {
-  if ((e.button === 1) || (e.button === 0 && Tablero[i].Revelado && Tablero[i].MinasCerca > 0)) {
-    e.preventDefault();
-    Chordear(i);
+    Celda.addEventListener('mousedown', (function(index) {
+      return function(e) {
+        if ((e.button === 1) || (e.button === 0 && Tablero[index].Revelado && Tablero[index].MinasCerca > 0)) {
+          e.preventDefault();
+          Chordear(index);
+        }
+      };
+    })(i));
+
+    TableroDOM.appendChild(Celda);
   }
-});
-
-
-  TableroDOM.appendChild(Celda);
-  }
-
   GenerarMinas();
   ObtenerMinasCerca();
 }
-
-function Musica() {
-  var musicOn = true;
-  audio.loop = true;
-  audio.volume = 0.1;
-
-  function EstadoMusica() {
-    if (musicOn) {
-      audio.play();
-      MusicaDOM.textContent = '🔊 Musica';
-    } else {
-      audio.pause();
-      MusicaDOM.textContent = '🔇 Musica';
-    }
-     musicOn = !musicOn;
-  }
-
-  MusicaDOM.addEventListener('click', ()=> EstadoMusica());
-}
-
-function ModoDiaNoche() {
-  var modoDia = true;
-  
-  function CambiarModo() {
-    if (modoDia) {
-      document.body.classList.add('ModoNoche');
-      ModoDOM.textContent = '🌙 Modo Noche';
-      modoDia = false;
-    } else {
-      document.body.classList.remove('ModoNoche');
-      ModoDOM.textContent = '☀️ Modo Día';
-      modoDia = true;
-    }
-  }
-
-  ModoDOM.addEventListener('click', CambiarModo);
-}
-
-// Funciones para LocalStorage
-function CargarPartidasGuardadas() {
-  const partidas = localStorage.getItem('buscaminas_partidas');
-  if (partidas) {
-    partidasGuardadas = JSON.parse(partidas);
-  }
-}
-
-function GuardarPartida(resultado, duracion) {
-  const partida = {
-    nombre: nombreJugador || 'Jugador',
-    resultado: resultado, // 'ganar' o 'perder'
-    fecha: new Date().toLocaleDateString('es-ES'),
-    hora: new Date().toLocaleTimeString('es-ES'),
-    duracion: duracion,
-    dificultad: DificultadDOM.value,
-    minas: MinasTotales,
-    filas: Filas,
-    columnas: Columnas
-  };
-  
-  partidasGuardadas.push(partida);
-  
-  // Mantener solo las últimas 50 partidas
-  if (partidasGuardadas.length > 50) {
-    partidasGuardadas = partidasGuardadas.slice(-50);
-  }
-  
-  localStorage.setItem('buscaminas_partidas', JSON.stringify(partidasGuardadas));
-  MostrarHistorial();
-}
-
-function MostrarHistorial() {
-  const historialContainer = document.getElementById('Historial');
-  if (!historialContainer) return;
-  
-  historialContainer.innerHTML = '<h3>Historial de Partidas</h3>';
-  
-  if (partidasGuardadas.length === 0) {
-    historialContainer.innerHTML += '<p>No hay partidas guardadas</p>';
-    return;
-  }
-  
-  const tabla = document.createElement('table');
-  tabla.innerHTML = `
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Resultado</th>
-        <th>Duración</th>
-        <th>Dificultad</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
-  
-  const tbody = tabla.querySelector('tbody');
-  partidasGuardadas.slice().reverse().forEach(partida => {
-    const fila = document.createElement('tr');
-    fila.innerHTML = `
-      <td>${partida.nombre}</td>
-      <td class="${partida.resultado}">${partida.resultado === 'ganar' ? '✅ Ganó' : '❌ Perdió'}</td>
-      <td>${partida.duracion} segs</td>
-      <td>${partida.dificultad}</td>
-      <td>${partida.fecha}</td>
-      <td>${partida.hora}</td>
-    `;
-    tbody.appendChild(fila);
-  });
-  
-  historialContainer.appendChild(tabla);
-}
-
-function SolicitarNombre() {
-  ModalNombre.style.display = 'block';
-  NombreJugadorInput.value = '';
-  NombreJugadorInput.focus();
-
-  errorDOM.textContent = ''; //ocultar el mensaje de error
-  errorDOM.style.display = 'none'; 
-}
-
-function CerrarModal() {
-  ModalNombre.style.display = 'none';
-}
-
-function GuardarNombreJugador() {
-  const nombreIngresado = NombreJugadorInput.value.trim();
-  
-  if (nombreIngresado.length < 3) {
-    errorDOM.textContent = 'El nombre debe tener al menos 3 letras.';
-    errorDOM.style.display = 'block';
-    return;
-  }
-
-  errorDOM.style.display = 'none';
-  nombreJugador = nombreIngresado;
-  CerrarModal();
-
-  const resultadoActual = ResultadoDOM.textContent === 'GANASTE' ? 'ganar' : 'perder';
-  GuardarPartida(resultadoActual, contador);
-}
-
 
 function IniciarTimer() {
   if (timer !== null) return;
@@ -339,7 +200,7 @@ function Revelar(i) {
 
   if (Celda.Revelado) return;
   if (Celda.Bandera) return;
-  
+
   Celda.Revelado = true;
   CeldaDom.classList.add('Revelada');
 
@@ -361,21 +222,22 @@ function Revelar(i) {
 }
 
 function Chordear(i) {
-  const celda = Tablero[i];
+  var celda = Tablero[i];
   if (!celda.Revelado || celda.MinasCerca === 0) return;
 
-  const vecinos = ObtenerVecinos(i);
-  const banderasCerca = vecinos.filter(idx => Tablero[idx].Bandera).length;
+  var vecinos = ObtenerVecinos(i);
+  var banderasCerca = vecinos.filter(function(idx) {
+    return Tablero[idx].Bandera;
+  }).length;
 
   if (banderasCerca === celda.MinasCerca) {
-    vecinos.forEach(idx => {
+    vecinos.forEach(function(idx) {
       if (!Tablero[idx].Bandera && !Tablero[idx].Revelado) {
         Revelar(idx);
       }
     });
   }
 }
-
 
 function PonerBandera(i) {
   var Celda = Tablero[i];
@@ -397,7 +259,6 @@ function PonerBandera(i) {
   VerificarVictoria();
 }
 
-
 function NuevaPartida() {
   ResultadoDOM.textContent = '';
   ResultadoDOM.classList.remove('ganar', 'perder');
@@ -408,28 +269,26 @@ function NuevaPartida() {
   }
 }
 
-CaraDOM.addEventListener('click', () => {
-  NuevaPartida();
-});
+CaraDOM.addEventListener('click', NuevaPartida);
 
-document.addEventListener('DOMContentLoaded',  () => {
+document.addEventListener('DOMContentLoaded',  function() {
   CargarPartidasGuardadas();
   Musica();
   Dificultad();
   NuevaPartida();
   MostrarHistorial();
-  
+  AplicarModoGuardado();
   // Event listeners para el modal
   GuardarNombreBtn.addEventListener('click', GuardarNombreJugador);
   CancelarNombreBtn.addEventListener('click', CerrarModal);
-  
+
   // Cerrar modal con Enter
   NombreJugadorInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       GuardarNombreJugador();
     }
   });
-  
+
   // Cerrar modal haciendo clic fuera
   ModalNombre.addEventListener('click', function(e) {
     if (e.target === ModalNombre) {
@@ -441,28 +300,128 @@ document.addEventListener('DOMContentLoaded',  () => {
 DificultadDOM.addEventListener('change', Dificultad);
 
 function Dificultad() {
-    const dificultad = DificultadDOM.value;
+  var dificultad = DificultadDOM.value;
 
-    switch (dificultad) {
-        case 'facil':
-            Filas = 8;
-            Columnas = 8;
-            MinasTotales = 10;
-            break;
-        case 'intermedio': 
-            Filas = 12;
-            Columnas = 12;
-            MinasTotales = 25;
-            break;
-        case 'dificil': 
-            Filas = 16;
-            Columnas = 16;
-            MinasTotales = 40;
-            break;
-        default: 
-            Filas = 8;
-            Columnas = 8;
-            MinasTotales = 10;
-    }
-    NuevaPartida();
+  switch (dificultad) {
+    case 'facil':
+      Filas = 8;
+      Columnas = 8;
+      MinasTotales = 10;
+      break;
+    case 'intermedio':
+      Filas = 12;
+      Columnas = 12;
+      MinasTotales = 25;
+      break;
+    case 'dificil':
+      Filas = 16;
+      Columnas = 16;
+      MinasTotales = 40;
+      break;
+    default:
+      Filas = 8;
+      Columnas = 8;
+      MinasTotales = 10;
   }
+  NuevaPartida();
+}
+
+function Musica() {
+  var musicOn = true;
+  audio.loop = true;
+  audio.volume = 0.1;
+
+  function EstadoMusica() {
+    if (musicOn) {
+      audio.play();
+      MusicaDOM.textContent = '🔊 Musica';
+    } else {
+      audio.pause();
+      MusicaDOM.textContent = '🔇 Musica';
+    }
+    musicOn = !musicOn;
+  }
+
+  MusicaDOM.addEventListener('click', EstadoMusica);
+}
+
+function ModoDiaNoche() {
+  ModoDOM.addEventListener('click', CambiarModo);
+}
+
+function AplicarModoGuardado() {
+  var modoDia = localStorage.getItem('modoDia') === 'true';
+
+  if (modoDia) {
+    document.body.classList.remove('ModoNoche');
+    ModoDOM.textContent = '☀️ Modo Día';
+  } else {
+    document.body.classList.add('ModoNoche');
+    ModoDOM.textContent = '🌙 Modo Noche';
+  }
+}
+
+function CambiarModo() {
+  var modoDia = localStorage.getItem('modoDia') === 'true';
+  modoDia = !modoDia;
+  localStorage.setItem('modoDia', modoDia.toString());
+  AplicarModoGuardado();
+}
+
+function CargarPartidasGuardadas() {
+  var partidas = localStorage.getItem('buscaminas_partidas');
+  if (partidas) {
+    partidasGuardadas = JSON.parse(partidas);
+  }
+}
+
+function GuardarPartida(resultado, duracion) {
+  var partida = {
+    nombre: nombreJugador || 'Jugador',
+    resultado: resultado,
+    duracion: duracion,
+    dificultad: DificultadDOM.value,
+    fecha: new Date().toLocaleString()
+  };
+  partidasGuardadas.push(partida);
+  localStorage.setItem('buscaminas_partidas', JSON.stringify(partidasGuardadas));
+  MostrarHistorial();
+}
+
+function MostrarHistorial() {
+  var historialDOM = document.getElementById('Historial');
+  if (!historialDOM) return;
+
+  historialDOM.innerHTML = '';
+  partidasGuardadas.forEach(function(p) {
+    var li = document.createElement('li');
+    li.textContent = p.fecha + ' - ' + p.nombre + ' - ' + p.resultado + ' - ' + p.duracion + ' seg - ' + p.dificultad;
+    historialDOM.appendChild(li);
+  });
+}
+
+function SolicitarNombre() {
+  ModalNombre.style.display = 'block';
+  NombreJugadorInput.value = '';
+  NombreJugadorInput.focus();
+}
+
+function GuardarNombreJugador() {
+  var nombre = NombreJugadorInput.value.trim();
+  if (nombre === '') {
+    errorDOM.textContent = 'Debe ingresar un nombre válido';
+    return;
+  }
+  nombreJugador = nombre;
+  errorDOM.textContent = '';
+  ModalNombre.style.display = 'none';
+
+  var duracion = contador;
+  var resultado = ResultadoDOM.textContent === 'GANASTE' ? 'Ganó' : 'Perdió';
+  GuardarPartida(resultado, duracion);
+}
+
+function CerrarModal() {
+  ModalNombre.style.display = 'none';
+  errorDOM.textContent = '';
+}
