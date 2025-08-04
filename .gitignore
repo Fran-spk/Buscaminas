@@ -1,0 +1,20 @@
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Configuración de VS Code
+.vscode/
+
+# Imágenes generadas o temporales
+*.png
+*.jpg
+*.jpeg
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Otros
+/dist/
+/build/

@@ -7,7 +7,7 @@ body {
   font-family: "Minecraft", sans-serif;
   text-align: center;
   background-color: #298b39;
-  background-image: url("assets/img/paisaje-montanas-y-lago-en-minecraft_3840x2128_xtrafondos.com.jpg");
+  background-image: url("../assets/img/paisaje-montanas-y-lago-en-minecraft_3840x2128_xtrafondos.com.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -18,7 +18,7 @@ body {
 
 body.ModoNoche {
   background-color: #1a1a2e;
-  background-image: url("assets/img/wp7930288-minecraft-night-wallpapers.png");
+  background-image: url("../assets/img/wp7930288-minecraft-night-wallpapers.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -60,18 +60,15 @@ body.ModoNoche {
   background: #444;
 }
 
-
 .Tablero {
   display: grid;
   justify-content: center;
   margin-top: 10px;
-  margin-left: auto;  
+  margin-left: auto;
   margin-right: auto;
   max-width: 100%;
   overflow-x: auto; /*permite el desplazamiento horizontal*/
-
 }
-
 
 .Celda {
   display: flex;
@@ -83,31 +80,29 @@ body.ModoNoche {
   border: #624b4b solid;
   margin: 0;
   padding: 0;
-  background-image: url("assets/img/Celda.png");
+  background-image: url("../assets/img/Celda.png");
   background-size: cover;
   background-position: center;
   font-weight: bold;
   font-size: 25px;
   color: #000000;
-  text-shadow:
-    -1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff;
+  text-shadow: -1px -1px 0 #ffffff, -1px 1px 0 #ffffff;
 }
 
 .Celda.Revelada {
-  background-image: url("assets/img/Revelada.png");
+  background-image: url("../assets/img/Revelada.png");
   background-size: cover;
   background-position: center;
 }
 
 .Celda.Minado {
-  background-image: url("assets/img/Mina.png");
+  background-image: url("../assets/img/Mina.png");
   background-size: cover;
   background-position: center;
 }
 
 .Celda.Bandera {
-  background-image: url("assets/img/Bandera.png");
+  background-image: url("../assets/img/Bandera.png");
   background-size: cover;
   background-position: center;
 }
@@ -127,7 +122,7 @@ body.ModoNoche .Resultado {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.Historial_modal{
+.Historial_modal {
   display: none;
   position: fixed;
   top: 0;
@@ -136,9 +131,8 @@ body.ModoNoche .Resultado {
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-
 }
 
 .Historial {
@@ -215,6 +209,7 @@ body.ModoNoche .Historial tr:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .ModalContenido {
@@ -311,12 +306,11 @@ body.ModoNoche .Historial tr:hover {
 .MensajeError {
   color: red;
   font-size: 0.9em;
-  margin-top: 5px;  
+  margin-top: 5px;
   padding: 0;
   margin-bottom: 0;
   height: 2rem;
 }
-
 
 body.ModoNoche .ModalContenido {
   background-color: #1a1a2e;
@@ -350,10 +344,7 @@ body.ModoNoche .ModalContenido input:focus {
   color: red;
 }
 
-
-
-
-#Dificultad{
+#Dificultad {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -366,9 +357,8 @@ body.ModoNoche .ModalContenido input:focus {
   min-width: 90px;
   height: 40px;
   cursor: pointer;
-  margin: 10px 0 0 0 ;
+  margin: 10px 0 0 0;
 }
-
 
 #NuevaPartida {
   display: block;
@@ -378,11 +368,11 @@ body.ModoNoche .ModalContenido input:focus {
   padding: 0;
   margin: 0 auto 0 auto;
   cursor: pointer;
-    outline: none;
-  }
+  outline: none;
+}
 
-  #NuevaPartida img {
-    width: 40px;
+#NuevaPartida img {
+  width: 40px;
   height: 40px;
   object-fit: contain;
   background: transparent;
@@ -412,7 +402,6 @@ body.ModoNoche .Puntos {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-
 @media (max-width: 768px) {
   .TableroContenedor {
     width: 100%;
@@ -423,13 +412,13 @@ body.ModoNoche .Puntos {
   }
 
   #Tablero {
-    margin: 0 ;
+    margin: 0;
     justify-content: start;
     min-width: max-content;
     transform: scale(1);
   }
 
-.Header {
+  .Header {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -448,7 +437,4 @@ body.ModoNoche .Puntos {
     width: 100%;
     max-width: 200px;
   }
-
 }
-
-

@@ -16,6 +16,7 @@
   max-width: 600px;
   width: 100%;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
   animation: entradaFormulario 0.5s ease-out;
 }
 
@@ -212,16 +213,16 @@ body.ModoNoche .TextoAyuda {
     padding: 30px 20px;
     margin: 20px;
   }
-  
+
   .ContactoTitulo {
     font-size: 2em;
   }
-  
+
   .ContenedorBotones {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .btn-enviar,
   .BotonLimpiar {
     width: 100%;
@@ -239,4 +240,4 @@ body.ModoNoche .TextoAyuda {
     opacity: 1;
     transform: translateY(0);
   }
-} 
+}
