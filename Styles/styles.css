@@ -61,7 +61,8 @@ body.ModoNoche {
 }
 
 .Tablero {
-  display: grid;
+  display : flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 10px;
   margin-left: auto;
@@ -100,6 +101,11 @@ body.ModoNoche {
   background-size: cover;
   background-position: center;
 }
+
+.Celda.Minado.Click {
+  border: 4px solid rgba(153, 25, 25, 0.7);
+}
+
 
 .Celda.Bandera {
   background-image: url("../assets/img/Bandera.png");

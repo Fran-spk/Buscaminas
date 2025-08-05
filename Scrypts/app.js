@@ -31,8 +31,7 @@ var errorDOM = document.getElementById('ErrorNombreJugador');
 function InicializarTablero() {
   TableroDOM.innerHTML = '';
   Tablero = [];
-  TableroDOM.style.width = (Columnas * 48) + 'px';
-  TableroDOM.style.gridTemplateColumns = 'repeat(' + Columnas + ', 48px)';
+  TableroDOM.style.width = (Columnas * 48) + 'px'; 
   juegoIniciado = false;
   MinasRestantes = MinasTotales;
   if (BanderasDOM) {
@@ -179,6 +178,7 @@ function VerificarVictoria() {
 
 function Perder(celda) {
   celda.classList.add('Minado');
+  celda.classList.add('Click');
   RevelarCeldas();
   ResultadoDOM.textContent = 'PERDISTE';
   if (CaraDOM) {
