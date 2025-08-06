@@ -406,12 +406,17 @@ document.getElementById('ModalHistorial').addEventListener('click', function(e) 
 
 function MostrarHistorial() {
   CargarPartidasGuardadas();
-  const historialDOM = document.getElementById('Historial');
-  const tbody = historialDOM.querySelector('tbody');
-  tbody.innerHTML = ''; 
+  var historialDOM = document.getElementById('Historial');
+  var tbody = historialDOM.querySelector('tbody');
+  tbody.innerHTML = '';
+
+
+  partidasGuardadas.sort(function(a, b) {
+    return a.duracion - b.duracion;
+  });
 
   partidasGuardadas.forEach(function(p) {
-    const tr = document.createElement('tr');
+    var tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${p.fecha}</td>
       <td>${p.nombre}</td>
@@ -421,6 +426,7 @@ function MostrarHistorial() {
     tbody.appendChild(tr);
   });
 }
+
 
 
 function SolicitarNombre() {

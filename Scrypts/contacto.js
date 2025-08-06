@@ -1,4 +1,3 @@
-// Variables del formulario
 var contactoForm = document.getElementById('contactoForm');
 var nombreInput = document.getElementById('nombre');
 var emailInput = document.getElementById('email');
@@ -6,18 +5,14 @@ var destinatarioInput = document.getElementById('destinatario');
 var mensajeInput = document.getElementById('mensaje');
 var btnEnviar = document.querySelector('.btn-enviar');
 
-// Elementos de error
 var nombreError = document.getElementById('nombreError');
 var emailError = document.getElementById('emailError');
 var mensajeError = document.getElementById('mensajeError');
 
-// Variables para el modo día/noche
 var MusicaDOM = document.getElementById('MusicaBtn');
 
 
-// Función para validar nombre (alfanumérico)
 function validarNombre(nombre) {
-  // Debe contener solo letras, números y espacios
   var regex = /^[a-zA-Z0-9\s]+$/;
 
   if (!nombre.trim()) {
@@ -150,7 +145,6 @@ contactoForm.addEventListener('submit', function(e) {
     abrirClienteEmail(nombre, email, destinatario, mensaje);
 
     setTimeout(function() {
-      alert('¡Mensaje enviado! Se ha abierto tu cliente de email predeterminado.');
       contactoForm.reset();
 
 
