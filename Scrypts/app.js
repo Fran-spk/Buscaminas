@@ -422,21 +422,22 @@ function MostrarHistorial() {
 }
 
 
-
-
-
 function SolicitarNombre() {
   ModalNombre.style.display = 'block';
   NombreJugadorInput.value = '';
+  errorDOM.textContent = '';
+  nombreJugador = '';
   NombreJugadorInput.focus();
 }
 
 function GuardarNombreJugador() {
   var nombre = NombreJugadorInput.value.trim();
-  if (nombre === '') {
-    errorDOM.textContent = 'Debe ingresar un nombre válido';
+
+  if (nombre.length < 3) {
+    errorDOM.textContent = 'El nombre debe tener al menos 3 caracteres';
     return;
   }
+
   nombreJugador = nombre;
   errorDOM.textContent = '';
   ModalNombre.style.display = 'none';
@@ -444,6 +445,7 @@ function GuardarNombreJugador() {
   var duracion = contador;
   GuardarPartida(resultado, duracion);
 }
+
 
 function CerrarModal() {
   ModalNombre.style.display = 'none';
