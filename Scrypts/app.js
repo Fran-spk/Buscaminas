@@ -10,7 +10,6 @@ var timer = null;
 var contador = 0;
 var audio = new Audio('assets/sonidos/rizzlas-c418-224649.mp3');
 var partidasGuardadas = [];
-var nombreJugador = '';
 var tiempoInicio = null;
 var TableroDOM = document.getElementById('Tablero');
 var ResultadoDOM = document.querySelector('.Resultado');
@@ -374,17 +373,7 @@ function CargarPartidasGuardadas() {
   }
 }
 
-function GuardarPartida(resultado, duracion) {
-  var partida = {
-    nombre: nombreJugador || 'Jugador',
-    duracion: duracion,
-    dificultad: DificultadDOM.value,
-    fecha: new Date().toLocaleString()
-  };
-  partidasGuardadas.push(partida);
-  localStorage.setItem('buscaminas_partidas', JSON.stringify(partidasGuardadas));
-  MostrarHistorial();
-}
+
 
 ResultadosBtn.addEventListener('click', function () {
   const modal = document.getElementById('ModalHistorial');
@@ -433,7 +422,6 @@ function SolicitarNombre() {
   ModalNombre.style.display = 'block';
   NombreJugadorInput.value = '';
   errorDOM.textContent = '';
-  nombreJugador = '';
   NombreJugadorInput.focus();
 }
 
@@ -445,14 +433,24 @@ function GuardarNombreJugador() {
     return;
   }
 
-  nombreJugador = nombre;
   errorDOM.textContent = '';
   ModalNombre.style.display = 'none';
 
   var duracion = contador;
-  GuardarPartida(resultado, duracion);
+  GuardarPartida(duracion);
 }
 
+function GuardarPartida(duracion) {
+  var partida = {
+    nombre: NombreJugadorInput.value || 'Jugador',
+    duracion: duracion,
+    dificultad: DificultadDOM.value,
+    fecha: new Date().toLocaleString()
+  };
+  partidasGuardadas.push(partida);
+  localStorage.setItem('buscaminas_partidas', JSON.stringify(partidasGuardadas));
+  MostrarHistorial();
+}
 
 function CerrarModal() {
   ModalNombre.style.display = 'none';

@@ -31,7 +31,6 @@ function validarNombre(nombre) {
 }
 
 function validarEmail(email) {
-  // Regex para validar formato de email
   var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!email.trim()) {
