@@ -142,6 +142,7 @@ function ObtenerMinasCerca() {
 }
 
 function RevelarCeldas() {
+  CaraDOM.removeEventListener('click', NuevaPartida); //no dejo empezar partida hasta que se revelen todas las minas
   setTimeout(function () {
     var i;
     for (i = 0; i < Tablero.length; i++) {
@@ -156,6 +157,7 @@ function RevelarCeldas() {
       if (celda.MinasCerca > 0) {
         celdaDOM.textContent = celda.MinasCerca;
       }
+      CaraDOM.addEventListener('click', NuevaPartida);
     }
   }, 1000);
 }
@@ -199,9 +201,8 @@ function Revelar(i) {
   var Celda = Tablero[i];
   var CeldaDom = TableroDOM.children[i];
 
-  if (Celda.Revelado) return;
-  if (Celda.Bandera) return;
-
+  if (Celda.Revelado || Celda.Bandera) return;
+ 
   Celda.Revelado = true;
   CeldaDom.classList.add('Revelada');
 
