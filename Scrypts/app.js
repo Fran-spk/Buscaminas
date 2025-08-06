@@ -26,6 +26,8 @@ var NombreJugadorInput = document.getElementById('NombreJugador');
 var GuardarNombreBtn = document.getElementById('GuardarNombre');
 var CancelarNombreBtn = document.getElementById('CancelarNombre');
 var errorDOM = document.getElementById('ErrorNombreJugador');
+var historialDOM = document.getElementById('Historial');
+
 
 function InicializarTablero() {
   TableroDOM.innerHTML = '';
@@ -395,7 +397,6 @@ document.getElementById('ModalHistorial').addEventListener('click', function(e) 
 
 function MostrarHistorial() {
   CargarPartidasGuardadas();
-  var historialDOM = document.getElementById('Historial');
   var tbody = historialDOM.querySelector('tbody');
   tbody.innerHTML = '';
 
@@ -437,7 +438,10 @@ function GuardarNombreJugador() {
   ModalNombre.style.display = 'none';
 
   var duracion = contador;
-  GuardarPartida(duracion);
+  GuardarPartida(duracion);  
+  
+  document.getElementById('ModalHistorial').style.display = 'flex';
+  MostrarHistorial();
 }
 
 function GuardarPartida(duracion) {
